@@ -1,7 +1,7 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Medium parser",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Unlocks the whole medium article on the go.",
   "icons": {
     "16": "img/icon16.png",
@@ -16,5 +16,10 @@
       "matches": ["*://*.medium.com/*"],
       "js": ["app.js"]
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "medium-parser@example.com"
+    }
+  }
 }

@@ -25,10 +25,7 @@ function runScript(url) {
   const root = document.getElementById("root");
   root.style.position = "relative";
 
-  if (
-    u.pathname.split("/").filter((e) => e).length >= 1 &&
-    root.textContent.includes("Member-only story")
-  ) {
+  if (u.pathname.split("/").filter((e) => e).length >= 1) {
     var leftDiv = document.createElement("div"); //Create left div
     leftDiv.id = "medium-parser"; //Assign div id
     leftDiv.setAttribute(
