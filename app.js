@@ -1,5 +1,7 @@
 /** @format */
 
+console.log("Medium parser loaded");
+
 // handle URL change
 let previousUrl = "";
 let observer = new MutationObserver(function (mutations) {
@@ -18,12 +20,15 @@ observer.observe(document, config);
 function runScript(url) {
   //   check the url
   const u = new URL(url);
-  console.log(u);
+  // console.log(u);
   // check if it is a page
-  if (u.pathname.split("/").filter((e) => e).length >= 1) {
-    const root = document.getElementById("root");
-    root.style.position = "relative";
+  const root = document.getElementById("root");
+  root.style.position = "relative";
 
+  if (
+    u.pathname.split("/").filter((e) => e).length >= 1 &&
+    root.textContent.includes("Member-only story")
+  ) {
     var leftDiv = document.createElement("div"); //Create left div
     leftDiv.id = "medium-parser"; //Assign div id
     leftDiv.setAttribute(
