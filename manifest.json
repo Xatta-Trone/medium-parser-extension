@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Medium parser",
   "version": "1.0.1",
   "description": "Unlocks the whole medium article on the go.",
