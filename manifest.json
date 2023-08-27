@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Medium parser",
+  "version": "1.0",
+
+  "description": "Unlocks the whole medium article on the go.",
+
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.medium.com/*"],
+      "js": ["app.js"]
+    }
+  ]
+}
