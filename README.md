@@ -22,6 +22,8 @@
 * This extension pulls the data from `webcache.googleusercontent.com`; then removes all the scripts and sends back the html and css contents only. It might not work when there is no data from the request. 
 * This extension does not work when medium redirects to external sites. 
 
+### Credits / Ideas
+*  [This article on reddit.com](https://www.reddit.com/r/ChatGPT/comments/138jt64/you_can_read_medium_articles_for_free_using_bing/)
 ## Preview
 
 <p align="center">
