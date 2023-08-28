@@ -9,10 +9,10 @@
 ## Installation Instructions
 **Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini)** (Custom sites supported)
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
-1. Unzip the file and you should have a folder named `medium-parser-master`.
+1. Unzip the file and you should have a folder named `medium-parser-extension-master`.
 1. In Chrome/Edge go to the extensions page (`chrome://extensions` or `edge://extensions`).
 1. Enable Developer Mode by clicking the toggle button on the top right side of the browser.
-1. Drag the `medium-parser-master` folder anywhere on the page to import it (do not delete the folder afterwards).
+1. Drag the `medium-parser-extension-master` folder anywhere on the page to import it (do not delete the folder afterwards).
 
 
 **Mozilla Firefox** (Custom sites not supported)
