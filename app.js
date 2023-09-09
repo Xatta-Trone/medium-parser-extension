@@ -1,4 +1,5 @@
 /** @format */
+alert("asdf");
 
 console.log("Medium parser loaded");
 
