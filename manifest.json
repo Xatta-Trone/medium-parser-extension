@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Medium parser",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Unlocks the whole medium article on the go.",
   "icons": {
     "16": "img/icon16.png",
@@ -13,7 +13,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.medium.com/*"],
+      "matches": ["<all_urls>"],
       "js": ["app.js"]
     }
   ],
