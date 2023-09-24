@@ -1,21 +1,33 @@
 /** @format */
-alert("asdf");
-
 console.log("Medium parser loaded");
+console.log("check medium start");
+checkIfItIsMediumBlog();
+console.log("check medium end");
+
+// if it is a medium blog then run the script
+function checkIfItIsMediumBlog() {
+  const e = /https?:\/\/cdn-(?:static|client)(?:-\d)?\.medium\.com\//;
+  [...document.querySelectorAll("script")].filter((r) => e.test(r.src)).length >
+    0 || e.test(window.location.hostname)
+    ? console.log("Is a medium blog !", handleURLChange())
+    : console.log("Not a medium blog :( ");
+}
 
 // handle URL change
-let previousUrl = "";
-let observer = new MutationObserver(function (mutations) {
-  if (location.href !== previousUrl) {
-    previousUrl = location.href;
-    console.log(`URL data changed to ${location.href}`);
-    runScript(location.href);
-    // your code here
-  }
-});
+function handleURLChange() {
+  let previousUrl = "";
+  let observer = new MutationObserver(function (mutations) {
+    if (location.href !== previousUrl) {
+      previousUrl = location.href;
+      console.log(`URL data changed to ${location.href}`);
+      runScript(location.href);
+      // your code here
+    }
+  });
 
-const config = { attributes: true, childList: true, subtree: true };
-observer.observe(document, config);
+  const config = { attributes: true, childList: true, subtree: true };
+  observer.observe(document, config);
+}
 
 // run the main script
 function runScript(url) {
