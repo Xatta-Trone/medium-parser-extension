@@ -29,3 +29,14 @@
 <p align="center">
   <img src="./img/sample.png" />
 </p>
+
+
+### Updates
+#### 1.1.0
+
+Added support for all medium.com based websites such as: 
+- https://medium.com 
+- https://towardsdatascience.com
+
+### 1.0.1
+Minor fixed and updates.
