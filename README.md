@@ -20,18 +20,22 @@
 
 ### Troubleshooting
 * This extension pulls the data from `webcache.googleusercontent.com`; then removes all the scripts and sends back the html and css contents only. It might not work when there is no data from the request. 
-* This extension does not work when medium redirects to external sites. 
+* For [archive.is](https://archive.is/), it simply redirects you with the data. 
 
 ### Credits / Ideas
 *  [This article on reddit.com](https://www.reddit.com/r/ChatGPT/comments/138jt64/you_can_read_medium_articles_for_free_using_bing/)
 ## Preview
 
 <p align="center">
-  <img src="./img/sample.png" />
+  <img src="./img/sample2.png" />
 </p>
 
 
 ### Updates
+#### 1.2.0
+Added support for [https://archive.is/](https://archive.is/)
+#### 1.1.1
+Removed dependency on the 3rd party server. Now you can directly read form the Google Web Cache
 #### 1.1.0
 
 Added support for all medium.com based websites such as: 
