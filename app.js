@@ -1,9 +1,35 @@
 /** @format */
 console.log("Medium parser loaded");
 
+const ignoreURLs = [
+  "/me/lists",
+  "/me/lists/saved",
+  "/me/list/highlights",
+  "/me/lists/reading-history",
+  "/me/stories/public",
+  "/me/stories/responses",
+  "/me/stories/drafts",
+  "/me/stats",
+  "/me/settings",
+  "/me/following",
+  "/me/settings",
+  "/me/settings/publishing",
+  "/me/settings/notifications",
+  "/me/settings/membership",
+  "/me/settings/security",
+  "/me/notifications",
+  "/plans",
+  "/mastodon",
+  "/verified-authors",
+  "/partner-program",
+  "/gift-plans",
+  "/new-story",
+  "/m/signin",
+];
+
 function init() {
   if (checkIfGoogleWebCache()) {
-    formatGoogleWebCache();
+    return formatGoogleWebCache();
   }
 
   checkIfItIsMediumBlog();
@@ -62,25 +88,38 @@ function runMedium(url) {
   const root = document.getElementById("root");
   root.style.position = "relative";
 
-  if (u.pathname.split("/").filter((e) => e).length >= 1) {
+  if (
+    ignoreURLs.indexOf(u.pathname) == -1 &&
+    u.pathname.split("/").filter((e) => e).length >= 1
+  ) {
     // get the title
 
     var leftDiv = document.createElement("div"); //Create left div
     leftDiv.id = "medium-parser"; //Assign div id
     leftDiv.setAttribute(
       "style",
-      "position:absolute;z-index:9999999;top:150px;right:150px;"
+      "position:absolute;z-index:1;top:150px;right:150px;"
     ); //Set div attributes
     a = document.createElement("a");
     a.href = `http://webcache.googleusercontent.com/search?q=cache:${url}&strip=0&vwsrc=1&referer=medium-parser`; // Instead of calling setAttribute
-    a.innerHTML = "Read full article"; // <a>INNER_TEXT</a>
+    a.innerHTML = "Read from Google Cache";
     a.setAttribute(
       "style",
-      "padding:10px 25px; color:white; background: #2c3e50; display:block;"
+      "padding:14px 25px; color:white; background: #242424; display:block;text-align:center;"
     ); //Set div attributes
     a.setAttribute("target", "_blank"); //Set div attributes
 
+    archive = document.createElement("a");
+    archive.href = `https://archive.is?url=${url}&run=1&referer=medium-parser`; // Instead of calling setAttribute
+    archive.innerHTML = "Read from Archive.is";
+    archive.setAttribute(
+      "style",
+      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
+    ); //Set div attributes
+    archive.setAttribute("target", "_blank"); //Set div attributes
+
     leftDiv.appendChild(a); // Append the link to the div
+    leftDiv.appendChild(archive);
     root.appendChild(leftDiv); // A
   } else {
     // remove the element
