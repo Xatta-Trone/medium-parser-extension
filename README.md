@@ -7,7 +7,10 @@
 *Medium parser is a web browser extension to help read the member-only articles on medium.com*
 
 ## Installation Instructions
-**Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini)** (Custom sites supported)
+### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini) (Custom sites supported)
+* [Download from chrome web store](https://chrome.google.com/webstore/detail/medium-parser/egejbknaophaadmhijkepokfchkbnelc?hl=en&authuser=0)
+
+Or install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
 1. Unzip the file and you should have a folder named `medium-parser-extension-main`.
 1. In Chrome/Edge go to the extensions page (`chrome://extensions` or `edge://extensions`).
@@ -15,8 +18,8 @@
 1. Drag the `medium-parser-extension-main` folder anywhere on the page to import it (do not delete the folder afterward).
 
 
-**Mozilla Firefox** (Custom sites not supported)
-* [Download and install the latest version](https://addons.mozilla.org/en-US/firefox/addon/medium-parser/)
+### Mozilla Firefox (Custom sites not supported)
+* [Download from mozilla add-ons](https://addons.mozilla.org/en-US/firefox/addon/medium-parser/)
 
 ### Troubleshooting
 * This extension pulls the data from `webcache.googleusercontent.com`; then removes all the scripts and sends back the html and css contents only. It might not work when there is no data from the request. 
