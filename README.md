@@ -7,8 +7,10 @@
 *Medium parser is a web browser extension to help read the member-only articles on medium.com*
 
 ## Installation Instructions
-### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini) (Custom sites supported)
-* [Download from chrome web store](https://chrome.google.com/webstore/detail/medium-parser/egejbknaophaadmhijkepokfchkbnelc?hl=en&authuser=0)
+### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini) (Custom sites supported) 
+* [Download from chrome web store](https://chrome.google.com/webstore/detail/medium-parser/egejbknaophaadmhijkepokfchkbnelc?hl=en&authuser=0) ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/egejbknaophaadmhijkepokfchkbnelc)
+ ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/egejbknaophaadmhijkepokfchkbnelc)
+
 
 Or install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
@@ -18,8 +20,9 @@ Or install manually
 1. Drag the `medium-parser-extension-main` folder anywhere on the page to import it (do not delete the folder afterward).
 
 
-### Mozilla Firefox (Custom sites not supported)
-* [Download from mozilla add-ons](https://addons.mozilla.org/en-US/firefox/addon/medium-parser/)
+### Mozilla Firefox (Custom sites not supported) 
+* [Download from mozilla add-ons](https://addons.mozilla.org/en-US/firefox/addon/medium-parser/) ![Mozilla Add-on Rating](https://img.shields.io/amo/rating/medium-parser) ![Mozilla Add-on Stars](https://img.shields.io/amo/stars/medium-parser)
+
 
 ### Troubleshooting
 * This extension pulls the data from `webcache.googleusercontent.com`; then removes all the scripts and sends back the html and css contents only. It might not work when there is no data from the request. 
