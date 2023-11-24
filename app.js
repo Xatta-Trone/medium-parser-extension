@@ -1,5 +1,5 @@
 /** @format */
-console.log("Medium parser loaded");
+// console.log("Medium parser loaded");
 
 const ignoreURLs = [
   "/me/lists",
@@ -39,9 +39,9 @@ init();
 
 // checks if the page is google web cache and referred by this extension
 function checkIfGoogleWebCache() {
-  console.log(
-    "Checking if this site is google webcache and referred by medium-parser extension"
-  );
+  // console.log(
+  //   "Checking if this site is google webcache and referred by medium-parser extension"
+  // );
   const url = new URL(document.URL);
 
   if (
@@ -49,20 +49,27 @@ function checkIfGoogleWebCache() {
     url.searchParams.has("referer", "medium-parser") &&
     url.searchParams.has("vwsrc", "1")
   ) {
-    console.log("Hooray !!! It is referred by medium-parser extension");
+    // console.log("Hooray !!! It is referred by medium-parser extension");
     return true;
   }
-  console.log("Nah !!! It is not referred by medium-parser extension");
+  // console.log("Nah !!! It is not referred by medium-parser extension");
   return false;
 }
 
 // if it is a medium blog then run the script
 function checkIfItIsMediumBlog() {
   const e = /https?:\/\/cdn-(?:static|client)(?:-\d)?\.medium\.com\//;
-  [...document.querySelectorAll("script")].filter((r) => e.test(r.src)).length >
-    0 || e.test(window.location.hostname)
-    ? console.log("Is a medium blog !", handleURLChange())
-    : console.log("Not a medium blog :( ");
+
+  if (
+    [...document.querySelectorAll("script")].filter((r) => e.test(r.src))
+      .length > 0 ||
+    e.test(window.location.hostname)
+  ) {
+    // console.log("Is a medium blog !", handleURLChange());
+    handleURLChange();
+  } else {
+    // console.log("Not a medium blog :( ");
+  }
 }
 
 // handle URL change
@@ -71,7 +78,7 @@ function handleURLChange() {
   let observer = new MutationObserver(function (mutations) {
     if (window.location.href !== previousUrl) {
       previousUrl = window.location.href;
-      console.log(`URL data changed to ${window.location.href}`);
+      // console.log(`URL data changed to ${window.location.href}`);
       runMedium(location.href);
     }
   });
@@ -118,8 +125,22 @@ function runMedium(url) {
     ); //Set div attributes
     archive.setAttribute("target", "_blank"); //Set div attributes
 
+    // old API
+    oldAPI = document.createElement("a");
+    oldAPI.href = `https://medium-parser.vercel.app/?url=${url}`; // Instead of calling setAttribute
+    oldAPI.innerHTML = "Open in Proxy API";
+    oldAPI.setAttribute(
+      "style",
+      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
+    ); //Set div attributes
+    oldAPI.setAttribute("target", "_blank"); //Set div attributes
+
+    messageEl = createMessageElement();
+
     leftDiv.appendChild(a); // Append the link to the div
     leftDiv.appendChild(archive);
+    leftDiv.appendChild(oldAPI);
+    leftDiv.appendChild(messageEl);
     root.appendChild(leftDiv); // A
   } else {
     // remove the element
@@ -131,43 +152,7 @@ function runMedium(url) {
   }
 }
 
-// run the main script
-function runMediumScript(url) {
-  //   check the url
-  const u = new URL(url);
-  // console.log(u);
-  // check if it is a page
-  const root = document.getElementById("root");
-  root.style.position = "relative";
-
-  if (u.pathname.split("/").filter((e) => e).length >= 1) {
-    var leftDiv = document.createElement("div"); //Create left div
-    leftDiv.id = "medium-parser"; //Assign div id
-    leftDiv.setAttribute(
-      "style",
-      "position:absolute;z-index:9999999;top:150px;right:150px;"
-    ); //Set div attributes
-    a = document.createElement("a");
-    a.href = `https://medium-parser.vercel.app/?url=${url}`; // Instead of calling setAttribute
-    a.innerHTML = "Read full article"; // <a>INNER_TEXT</a>
-    a.setAttribute(
-      "style",
-      "padding:10px 25px; color:white; background: #2c3e50; display:inline-block;"
-    ); //Set div attributes
-    a.setAttribute("target", "_blank"); //Set div attributes
-    leftDiv.appendChild(a); // Append the link to the div
-    root.appendChild(leftDiv); // A
-  } else {
-    // remove the element
-    const el = document.getElementById("medium-parser");
-
-    if (el != undefined || el != null) {
-      el.remove();
-    }
-  }
-}
-
-// format google webcache
+// format google web-cache
 function formatGoogleWebCache() {
   const contents = htmlDecode(
     document.querySelector("body > div > pre").innerHTML
@@ -201,4 +186,31 @@ function getTitle(rawContent) {
   var startPos = rawContent.indexOf(start) + start.length;
   var endPos = rawContent.indexOf(end);
   return rawContent.substring(startPos, endPos).trim();
+}
+
+function createMessageElement() {
+  // old API
+  messageEl = document.createElement("div");
+  messageEl.innerHTML =
+    "Iframes/gists/embeds are not loaded in the Google Cache proxy. For those, use the Archive.is proxy instead.";
+  messageEl.setAttribute(
+    "style",
+    "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em;border: 1px solid black; margin-top:10px; position:relative;"
+  );
+
+  // cross el
+  // crossEl = document.createElement("div");
+  // crossEl.innerHTML = "&#10005;";
+  // crossEl.setAttribute(
+  //   "style",
+  //   "position: absolute;right: -1px;top: -1px;background: #242424;padding: 0px 4px;margin: 0; color: white;cursor: pointer;"
+  // );
+  // crossEl.addEventListener("click", removeMessageEl);
+
+  // messageEl.appendChild(crossEl);
+  return messageEl;
+}
+
+function removeMessageEl(e) {
+  e.target.parentNode.remove();
 }

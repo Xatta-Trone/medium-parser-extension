@@ -38,6 +38,10 @@ Or install manually
 
 
 ### Updates
+#### 1.3.0
+Added 3<sup>rd</sup> party API proxy support.
+
+Added disclaimer message with the buttons. 
 #### 1.2.0
 Added support for [https://archive.is/](https://archive.is/)
 #### 1.1.1
