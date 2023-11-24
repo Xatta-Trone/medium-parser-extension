@@ -135,14 +135,14 @@ function runMedium(url) {
     ); //Set div attributes
     oldAPI.setAttribute("target", "_blank"); //Set div attributes
 
-    // messageEl = createMessageElement();
+    messageEl = createMessageElement();
 
     leftDiv.appendChild(a); // Append the link to the div
-    // if (messageEl != null) {
-    //   leftDiv.appendChild(messageEl);
-    // }
     leftDiv.appendChild(archive);
     leftDiv.appendChild(oldAPI);
+    if (messageEl != null) {
+      leftDiv.appendChild(messageEl);
+    }
     root.appendChild(leftDiv); // A
   } else {
     // remove the element
@@ -200,22 +200,22 @@ function createMessageElement() {
   // old API
   messageEl = document.createElement("div");
   messageEl.innerHTML =
-    "Iframes/gists are not loaded in the Google Cache proxy. For those, use the Archive.is proxy instead.";
+    "Iframes/gists/embeds are not loaded in the Google Cache proxy. For those, use the Archive.is proxy instead.";
   messageEl.setAttribute(
     "style",
-    "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.85em;border: 1px solid black; margin-top:10px; position:relative;"
+    "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em;border: 1px solid black; margin-top:10px; position:relative;"
   );
 
   // cross el
-  crossEl = document.createElement("div");
-  crossEl.innerHTML = "&#10005;";
-  crossEl.setAttribute(
-    "style",
-    "position: absolute;right: -1px;top: -1px;background: #242424;padding: 0px 4px;margin: 0; color: white;cursor: pointer;"
-  );
-  crossEl.addEventListener("click", removeMessageEl);
+  // crossEl = document.createElement("div");
+  // crossEl.innerHTML = "&#10005;";
+  // crossEl.setAttribute(
+  //   "style",
+  //   "position: absolute;right: -1px;top: -1px;background: #242424;padding: 0px 4px;margin: 0; color: white;cursor: pointer;"
+  // );
+  // crossEl.addEventListener("click", removeMessageEl);
 
-  messageEl.appendChild(crossEl);
+  // messageEl.appendChild(crossEl);
   return messageEl;
 }
 
