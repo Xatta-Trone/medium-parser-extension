@@ -105,7 +105,7 @@ function runMedium(url) {
     leftDiv.id = "medium-parser"; //Assign div id
     leftDiv.setAttribute(
       "style",
-      "position:absolute;z-index:1;top:150px;right:5%;"
+      "position:absolute;z-index:1;top:150px;right:150px;"
     ); //Set div attributes
     a = document.createElement("a");
     a.href = `http://webcache.googleusercontent.com/search?q=cache:${url}&strip=0&vwsrc=1&referer=medium-parser`; // Instead of calling setAttribute
@@ -140,9 +140,7 @@ function runMedium(url) {
     leftDiv.appendChild(a); // Append the link to the div
     leftDiv.appendChild(archive);
     leftDiv.appendChild(oldAPI);
-    if (messageEl != null) {
-      leftDiv.appendChild(messageEl);
-    }
+    leftDiv.appendChild(messageEl);
     root.appendChild(leftDiv); // A
   } else {
     // remove the element
