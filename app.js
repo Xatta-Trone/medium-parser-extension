@@ -1,5 +1,5 @@
 /** @format */
-console.log("Medium parser loaded");
+// console.log("Medium parser loaded");
 
 const ignoreURLs = [
   "/me/lists",
@@ -39,9 +39,9 @@ init();
 
 // checks if the page is google web cache and referred by this extension
 function checkIfGoogleWebCache() {
-  console.log(
-    "Checking if this site is google webcache and referred by medium-parser extension"
-  );
+  // console.log(
+  //   "Checking if this site is google webcache and referred by medium-parser extension"
+  // );
   const url = new URL(document.URL);
 
   if (
@@ -49,20 +49,27 @@ function checkIfGoogleWebCache() {
     url.searchParams.has("referer", "medium-parser") &&
     url.searchParams.has("vwsrc", "1")
   ) {
-    console.log("Hooray !!! It is referred by medium-parser extension");
+    // console.log("Hooray !!! It is referred by medium-parser extension");
     return true;
   }
-  console.log("Nah !!! It is not referred by medium-parser extension");
+  // console.log("Nah !!! It is not referred by medium-parser extension");
   return false;
 }
 
 // if it is a medium blog then run the script
 function checkIfItIsMediumBlog() {
   const e = /https?:\/\/cdn-(?:static|client)(?:-\d)?\.medium\.com\//;
-  [...document.querySelectorAll("script")].filter((r) => e.test(r.src)).length >
-    0 || e.test(window.location.hostname)
-    ? console.log("Is a medium blog !", handleURLChange())
-    : console.log("Not a medium blog :( ");
+
+  if (
+    [...document.querySelectorAll("script")].filter((r) => e.test(r.src))
+      .length > 0 ||
+    e.test(window.location.hostname)
+  ) {
+    // console.log("Is a medium blog !", handleURLChange());
+    handleURLChange();
+  } else {
+    // console.log("Not a medium blog :( ");
+  }
 }
 
 // handle URL change
@@ -71,7 +78,7 @@ function handleURLChange() {
   let observer = new MutationObserver(function (mutations) {
     if (window.location.href !== previousUrl) {
       previousUrl = window.location.href;
-      console.log(`URL data changed to ${window.location.href}`);
+      // console.log(`URL data changed to ${window.location.href}`);
       runMedium(location.href);
     }
   });
@@ -128,12 +135,12 @@ function runMedium(url) {
     ); //Set div attributes
     oldAPI.setAttribute("target", "_blank"); //Set div attributes
 
-    messageEl = createMessageElement();
+    // messageEl = createMessageElement();
 
     leftDiv.appendChild(a); // Append the link to the div
-    if (messageEl != null) {
-      leftDiv.appendChild(messageEl);
-    }
+    // if (messageEl != null) {
+    //   leftDiv.appendChild(messageEl);
+    // }
     leftDiv.appendChild(archive);
     leftDiv.appendChild(oldAPI);
     root.appendChild(leftDiv); // A
