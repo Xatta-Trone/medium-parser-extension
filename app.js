@@ -118,8 +118,24 @@ function runMedium(url) {
     ); //Set div attributes
     archive.setAttribute("target", "_blank"); //Set div attributes
 
+    // old API
+    oldAPI = document.createElement("a");
+    oldAPI.href = `https://medium-parser.vercel.app/?url=${url}`; // Instead of calling setAttribute
+    oldAPI.innerHTML = "Open in Proxy API";
+    oldAPI.setAttribute(
+      "style",
+      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
+    ); //Set div attributes
+    oldAPI.setAttribute("target", "_blank"); //Set div attributes
+
+    messageEl = createMessageElement();
+
     leftDiv.appendChild(a); // Append the link to the div
+    if (messageEl != null) {
+      leftDiv.appendChild(messageEl);
+    }
     leftDiv.appendChild(archive);
+    leftDiv.appendChild(oldAPI);
     root.appendChild(leftDiv); // A
   } else {
     // remove the element
@@ -131,43 +147,7 @@ function runMedium(url) {
   }
 }
 
-// run the main script
-function runMediumScript(url) {
-  //   check the url
-  const u = new URL(url);
-  // console.log(u);
-  // check if it is a page
-  const root = document.getElementById("root");
-  root.style.position = "relative";
-
-  if (u.pathname.split("/").filter((e) => e).length >= 1) {
-    var leftDiv = document.createElement("div"); //Create left div
-    leftDiv.id = "medium-parser"; //Assign div id
-    leftDiv.setAttribute(
-      "style",
-      "position:absolute;z-index:9999999;top:150px;right:150px;"
-    ); //Set div attributes
-    a = document.createElement("a");
-    a.href = `https://medium-parser.vercel.app/?url=${url}`; // Instead of calling setAttribute
-    a.innerHTML = "Read full article"; // <a>INNER_TEXT</a>
-    a.setAttribute(
-      "style",
-      "padding:10px 25px; color:white; background: #2c3e50; display:inline-block;"
-    ); //Set div attributes
-    a.setAttribute("target", "_blank"); //Set div attributes
-    leftDiv.appendChild(a); // Append the link to the div
-    root.appendChild(leftDiv); // A
-  } else {
-    // remove the element
-    const el = document.getElementById("medium-parser");
-
-    if (el != undefined || el != null) {
-      el.remove();
-    }
-  }
-}
-
-// format google webcache
+// format google web-cache
 function formatGoogleWebCache() {
   const contents = htmlDecode(
     document.querySelector("body > div > pre").innerHTML
@@ -201,4 +181,38 @@ function getTitle(rawContent) {
   var startPos = rawContent.indexOf(start) + start.length;
   var endPos = rawContent.indexOf(end);
   return rawContent.substring(startPos, endPos).trim();
+}
+
+function createMessageElement() {
+  if (
+    localStorage.getItem("removeMessage") != null &&
+    localStorage.getItem("removeMessage") == "true"
+  ) {
+    return null;
+  }
+  // old API
+  messageEl = document.createElement("div");
+  messageEl.innerHTML =
+    "Iframes/gists are not loaded in the Google Cache proxy. For those, use the Archive.is proxy instead.";
+  messageEl.setAttribute(
+    "style",
+    "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.85em;border: 1px solid black; margin-top:10px; position:relative;"
+  );
+
+  // cross el
+  crossEl = document.createElement("div");
+  crossEl.innerHTML = "&#10005;";
+  crossEl.setAttribute(
+    "style",
+    "position: absolute;right: -1px;top: -1px;background: #242424;padding: 0px 4px;margin: 0; color: white;cursor: pointer;"
+  );
+  crossEl.addEventListener("click", removeMessageEl);
+
+  messageEl.appendChild(crossEl);
+  return messageEl;
+}
+
+function removeMessageEl(e) {
+  e.target.parentNode.remove();
+  localStorage.setItem("removeMessage", "true");
 }
