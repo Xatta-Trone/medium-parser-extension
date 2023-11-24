@@ -191,12 +191,6 @@ function getTitle(rawContent) {
 }
 
 function createMessageElement() {
-  if (
-    localStorage.getItem("removeMessage") != null &&
-    localStorage.getItem("removeMessage") == "true"
-  ) {
-    return null;
-  }
   // old API
   messageEl = document.createElement("div");
   messageEl.innerHTML =
@@ -221,5 +215,4 @@ function createMessageElement() {
 
 function removeMessageEl(e) {
   e.target.parentNode.remove();
-  localStorage.setItem("removeMessage", "true");
 }
