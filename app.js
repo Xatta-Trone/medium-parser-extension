@@ -105,7 +105,7 @@ function runMedium(url) {
     leftDiv.id = "medium-parser"; //Assign div id
     leftDiv.setAttribute(
       "style",
-      "position:absolute;z-index:1;top:150px;right:150px;"
+      "position:absolute;z-index:1;top:150px;right:5%;"
     ); //Set div attributes
     a = document.createElement("a");
     a.href = `http://webcache.googleusercontent.com/search?q=cache:${url}&strip=0&vwsrc=1&referer=medium-parser`; // Instead of calling setAttribute
