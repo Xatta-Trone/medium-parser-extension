@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./img/icon128.png" />
+  <img src="./img/icon128.jpg" />
 </p>
 
 <h1 align="center">Medium Parser</h1>
@@ -38,6 +38,10 @@ Or install manually
 
 
 ### Updates
+#### 1.3.2
+Changed logo
+
+Change archive.is to archive.today for better proxy support
 #### 1.3.0
 Added 3<sup>rd</sup> party API proxy support.
 
