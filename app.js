@@ -117,8 +117,8 @@ function runMedium(url) {
     a.setAttribute("target", "_blank"); //Set div attributes
 
     archive = document.createElement("a");
-    archive.href = `https://archive.is?url=${url}&run=1&referer=medium-parser`; // Instead of calling setAttribute
-    archive.innerHTML = "Read from Archive.is";
+    archive.href = `https://archive.today?url=${url}&run=1&referer=medium-parser`; // Instead of calling setAttribute
+    archive.innerHTML = "Read from Archive";
     archive.setAttribute(
       "style",
       "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
