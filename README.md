@@ -34,8 +34,11 @@ Or install manually
 
 ### Credits / Ideas
 *  [This article on reddit.com](https://www.reddit.com/r/ChatGPT/comments/138jt64/you_can_read_medium_articles_for_free_using_bing/)
-## Preview
 
+### Support 
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.com/paypalme/monzurulislam1112?country.x=US&locale.x=en_US)
+
+## Preview
 <p align="center">
   <img src="./img/sample2.png" />
 </p>
