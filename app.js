@@ -109,7 +109,7 @@ function runMedium(url) {
     ); //Set div attributes
     a = document.createElement("a");
     a.href = `http://webcache.googleusercontent.com/search?q=cache:${url}&strip=0&vwsrc=1&referer=medium-parser`; // Instead of calling setAttribute
-    a.innerHTML = "Read from Google Cache";
+    a.innerHTML = "Open in Google Cache";
     a.setAttribute(
       "style",
       "padding:14px 25px; color:white; background: #242424; display:block;text-align:center;"
@@ -118,7 +118,7 @@ function runMedium(url) {
 
     archive = document.createElement("a");
     archive.href = `https://archive.today?url=${url}&run=1&referer=medium-parser`; // Instead of calling setAttribute
-    archive.innerHTML = "Read from Archive";
+    archive.innerHTML = "Open in Archive";
     archive.setAttribute(
       "style",
       "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
@@ -135,9 +135,20 @@ function runMedium(url) {
     ); //Set div attributes
     oldAPI.setAttribute("target", "_blank"); //Set div attributes
 
+    // add readmedium.com
+    readMedium = document.createElement("a");
+    readMedium.href = `https://readmedium.com/${url}`; // Instead of calling setAttribute
+    readMedium.innerHTML = "Open in Read-Medium";
+    readMedium.setAttribute(
+      "style",
+      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
+    ); //Set div attributes
+    readMedium.setAttribute("target", "_blank"); //Set div attributes
+
     messageEl = createMessageElement();
 
     leftDiv.appendChild(a); // Append the link to the div
+    leftDiv.appendChild(readMedium);
     leftDiv.appendChild(archive);
     leftDiv.appendChild(oldAPI);
     leftDiv.appendChild(messageEl);
@@ -192,7 +203,7 @@ function createMessageElement() {
   // old API
   messageEl = document.createElement("div");
   messageEl.innerHTML =
-    "Iframes/gists/embeds are not loaded in the Google Cache proxy. For those, use the Archive.is proxy instead.";
+    "Iframe/gist/embeds are not loaded in the Google Cache proxy. For those, please use the Read-Medium/Archive proxy instead.";
   messageEl.setAttribute(
     "style",
     "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em;border: 1px solid black; margin-top:10px; position:relative;"

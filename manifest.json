@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Medium parser",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Unlocks the whole medium article on the go.",
   "icons": {
     "16": "img/icon16.jpg",
