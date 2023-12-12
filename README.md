@@ -45,6 +45,8 @@ Or install manually
 
 
 ### Updates
+#### 1.4.0
+Added support for [https://readmedium.com/](https://readmedium.com/)
 #### 1.3.2
 Changed logo
 
@@ -65,3 +67,6 @@ Added support for all medium.com based websites such as:
 
 ### 1.0.1
 Minor fixed and updates.
+
+### 1.0.0
+Initial release.
