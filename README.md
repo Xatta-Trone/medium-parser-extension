@@ -36,7 +36,10 @@ Or install manually
 *  [This article on reddit.com](https://www.reddit.com/r/ChatGPT/comments/138jt64/you_can_read_medium_articles_for_free_using_bing/)
 
 ### Support 
-[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.com/paypalme/monzurulislam1112?country.x=US&locale.x=en_US)
+Please consider a donation if you find this extension helps you daily.
+Your contribution allows me to spend more time making this kind of extension/project.
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/paypalme/monzurulislam1112?country.x=US&locale.x=en_US)
 
 ## Preview
 <p align="center">
