@@ -39,9 +39,6 @@ init();
 
 // checks if the page is google web cache and referred by this extension
 function checkIfGoogleWebCache() {
-  // console.log(
-  //   "Checking if this site is google webcache and referred by medium-parser extension"
-  // );
   const url = new URL(document.URL);
 
   if (
@@ -88,7 +85,7 @@ function handleURLChange() {
 }
 
 function runMedium(url) {
-  //   check the url
+  // check the url
   const u = new URL(url);
 
   // check if it is a page
@@ -99,59 +96,38 @@ function runMedium(url) {
     ignoreURLs.indexOf(u.pathname) == -1 &&
     u.pathname.split("/").filter((e) => e).length >= 1
   ) {
-    // get the title
-
-    var leftDiv = document.createElement("div"); //Create left div
-    leftDiv.id = "medium-parser"; //Assign div id
+    var leftDiv = document.createElement("div");
+    leftDiv.id = "medium-parser";
     leftDiv.setAttribute(
       "style",
       "position:absolute;z-index:1;top:150px;right:150px;"
-    ); //Set div attributes
-    a = document.createElement("a");
-    a.href = `http://webcache.googleusercontent.com/search?q=cache:${url}&strip=0&vwsrc=1&referer=medium-parser`; // Instead of calling setAttribute
-    a.innerHTML = "Open in Google Cache";
-    a.setAttribute(
-      "style",
-      "padding:14px 25px; color:white; background: #242424; display:block;text-align:center;"
-    ); //Set div attributes
-    a.setAttribute("target", "_blank"); //Set div attributes
+    );
 
-    archive = document.createElement("a");
-    archive.href = `https://archive.today?url=${url}&run=1&referer=medium-parser`; // Instead of calling setAttribute
-    archive.innerHTML = "Open in Archive";
-    archive.setAttribute(
-      "style",
-      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
-    ); //Set div attributes
-    archive.setAttribute("target", "_blank"); //Set div attributes
-
-    // old API
-    oldAPI = document.createElement("a");
-    oldAPI.href = `https://medium-parser.vercel.app/?url=${url}`; // Instead of calling setAttribute
-    oldAPI.innerHTML = "Open in Proxy API";
-    oldAPI.setAttribute(
-      "style",
-      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
-    ); //Set div attributes
-    oldAPI.setAttribute("target", "_blank"); //Set div attributes
-
-    // add readmedium.com
-    readMedium = document.createElement("a");
-    readMedium.href = `https://readmedium.com/${url}`; // Instead of calling setAttribute
-    readMedium.innerHTML = "Open in Read-Medium";
-    readMedium.setAttribute(
-      "style",
-      "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
-    ); //Set div attributes
-    readMedium.setAttribute("target", "_blank"); //Set div attributes
+    let buttons = [
+      createButton(
+        "Open in Google Cache",
+        `http://webcache.googleusercontent.com/search?q=cache:${url}&strip=0&vwsrc=1&referer=medium-parser`
+      ),
+      createButton("Open in Read-Medium", `https://readmedium.com/en/${url}`),
+      createButton("Open in Freedium", `https://freedium.cfd/${url}`),
+      createButton(
+        "Open in Archive",
+        `https://archive.today?url=${url}&run=1&referer=medium-parser`
+      ),
+      createButton(
+        "Open in Proxy API",
+        `https://medium-parser.vercel.app/?url=${url}`
+      ),
+      createMessageElement(),
+      createSupportElement(),
+    ];
 
     messageEl = createMessageElement();
 
-    leftDiv.appendChild(a); // Append the link to the div
-    leftDiv.appendChild(readMedium);
-    leftDiv.appendChild(archive);
-    leftDiv.appendChild(oldAPI);
-    leftDiv.appendChild(messageEl);
+    buttons.forEach((button) => {
+      leftDiv.appendChild(button);
+    });
+
     root.appendChild(leftDiv); // A
   } else {
     // remove the element
@@ -208,20 +184,33 @@ function createMessageElement() {
     "style",
     "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em;border: 1px solid black; margin-top:10px; position:relative;"
   );
-
-  // cross el
-  // crossEl = document.createElement("div");
-  // crossEl.innerHTML = "&#10005;";
-  // crossEl.setAttribute(
-  //   "style",
-  //   "position: absolute;right: -1px;top: -1px;background: #242424;padding: 0px 4px;margin: 0; color: white;cursor: pointer;"
-  // );
-  // crossEl.addEventListener("click", removeMessageEl);
-
-  // messageEl.appendChild(crossEl);
   return messageEl;
+}
+
+function createSupportElement() {
+  btnEl = document.createElement("div");
+  btnEl.innerHTML =
+    "Having an issue ? <a href='https://github.com/Xatta-Trone/medium-parser-extension/issues/new' target='_blank' style='color: #ff4757;text-decoration: underline;'>Open a ticket</a>";
+  btnEl.setAttribute(
+    "style",
+    "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em; margin-top:10px; position:relative;"
+  );
+  return btnEl;
 }
 
 function removeMessageEl(e) {
   e.target.parentNode.remove();
+}
+
+// create the button UI
+function createButton(text, url) {
+  btnEl = document.createElement("a");
+  btnEl.href = url;
+  btnEl.innerHTML = text;
+  btnEl.setAttribute(
+    "style",
+    "padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;"
+  );
+  btnEl.setAttribute("target", "_blank");
+  return btnEl;
 }
