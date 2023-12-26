@@ -122,8 +122,6 @@ function runMedium(url) {
       createSupportElement(),
     ];
 
-    messageEl = createMessageElement();
-
     buttons.forEach((button) => {
       leftDiv.appendChild(button);
     });

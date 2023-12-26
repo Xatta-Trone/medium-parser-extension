@@ -48,6 +48,8 @@ Your contribution allows me to spend more time making this kind of extension/pro
 
 
 ### Updates
+#### 1.5.0
+Added support for [https://freedium.cfd//](https://freedium.cfd//)
 #### 1.4.0
 Added support for [https://readmedium.com/](https://readmedium.com/)
 #### 1.3.2
