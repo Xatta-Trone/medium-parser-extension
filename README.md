@@ -48,6 +48,10 @@ Your contribution allows me to spend more time making this kind of extension/pro
 
 
 ### Updates
+#### 1.5.1
+removed Unrecognized manifest key 'browser_specific_settings'.
+
+added mail support link
 #### 1.5.0
 Added support for [https://freedium.cfd//](https://freedium.cfd//)
 
