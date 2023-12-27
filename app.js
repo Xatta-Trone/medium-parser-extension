@@ -188,7 +188,7 @@ function createMessageElement() {
 function createSupportElement() {
   btnEl = document.createElement("div");
   btnEl.innerHTML =
-    "Having an issue ? <a href='https://github.com/Xatta-Trone/medium-parser-extension/issues/new' target='_blank' style='color: #ff4757;text-decoration: underline;'>Open a ticket</a>";
+    "Having an issue ? <br> <a href='https://github.com/Xatta-Trone/medium-parser-extension/issues/new' target='_blank' style='color: #ff4757;text-decoration: underline;'>Open a ticket</a> or <a href='mailto:monzurul.ce.buet@gmail.com' target='_blank' style='color: #ff4757;text-decoration: underline;'>mail here</a>";
   btnEl.setAttribute(
     "style",
     "padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em; margin-top:10px; position:relative;"
