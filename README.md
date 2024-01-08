@@ -48,6 +48,10 @@ Your contribution allows me to spend more time making this kind of extension/pro
 
 
 ### Updates
+
+#### 1.5.3
+[Issue #21](https://github.com/Xatta-Trone/medium-parser-extension/issues/21) `@username` and `/me/*` path excluded.
+
 #### 1.5.2
 [Issue #21](https://github.com/Xatta-Trone/medium-parser-extension/issues/21) `/explore-topics` and `/tag/*` path excluded. Wildcard checks added.
 
