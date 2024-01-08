@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Medium parser",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Read Medium.com and medium.com based articles for free.",
   "icons": {
     "16": "img/icon16.jpg",

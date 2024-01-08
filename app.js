@@ -97,6 +97,7 @@ function runMedium(url) {
   if (
     ignoreURLs.indexOf(u.pathname) == -1 &&
     checkWildCardPaths(u.pathname) == false &&
+    checkUserProfile(u.pathname) == false &&
     u.pathname.split("/").filter((e) => e).length >= 1
   ) {
     var leftDiv = document.createElement("div");
@@ -222,4 +223,15 @@ function checkWildCardPaths(currentPath) {
     return url.split("/").filter((e) => e)[0] == splittedCurrentPath[0];
   };
   return ignoreURLs.some(match);
+}
+
+function checkUserProfile(currentPath) {
+  let splittedCurrentPath = currentPath.split("/").filter((e) => e);
+  if (
+    splittedCurrentPath[0].startsWith("@") &&
+    splittedCurrentPath.length == 1
+  ) {
+    return true;
+  }
+  return false;
 }
