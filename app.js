@@ -25,6 +25,8 @@ const ignoreURLs = [
   "/gift-plans",
   "/new-story",
   "/m/signin",
+  "/explore-topics",
+  "/tag/*",
 ];
 
 function init() {
@@ -94,6 +96,7 @@ function runMedium(url) {
 
   if (
     ignoreURLs.indexOf(u.pathname) == -1 &&
+    checkWildCardPaths(u.pathname) == false &&
     u.pathname.split("/").filter((e) => e).length >= 1
   ) {
     var leftDiv = document.createElement("div");
@@ -211,4 +214,12 @@ function createButton(text, url) {
   );
   btnEl.setAttribute("target", "_blank");
   return btnEl;
+}
+
+function checkWildCardPaths(currentPath) {
+  let splittedCurrentPath = currentPath.split("/").filter((e) => e);
+  const match = (url) => {
+    return url.split("/").filter((e) => e)[0] == splittedCurrentPath[0];
+  };
+  return ignoreURLs.some(match);
 }

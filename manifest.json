@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Medium parser",
-  "version": "1.5.1",
-  "description": "Unlocks the whole medium article on the go.",
+  "version": "1.5.2",
+  "description": "Read Medium.com and medium.com based articles for free.",
   "icons": {
     "16": "img/icon16.jpg",
     "32": "img/icon32.jpg",
