@@ -4,7 +4,7 @@
 
 <h1 align="center">Medium Parser</h1>
 
-*Medium parser is a web browser extension to help read the member-only articles on medium.com and meduim.com based sites (e.g. towwardsdatascience)*
+*Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)*
 
 ## Installation Instructions
 ### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini/Thorium etc.)
@@ -56,7 +56,7 @@ Your contribution allows me to spend more time making this kind of extension/pro
 [Issue #21](https://github.com/Xatta-Trone/medium-parser-extension/issues/21) `/explore-topics` and `/tag/*` path excluded. Wildcard checks added.
 
 #### 1.5.1
-removed Unrecognized manifest key 'browser_specific_settings'.
+removed the Unrecognized manifest key 'browser_specific_settings'.
 
 added mail support link
 #### 1.5.0
