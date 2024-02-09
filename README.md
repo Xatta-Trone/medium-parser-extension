@@ -46,6 +46,10 @@ Your contribution allows me to spend more time making this kind of extension/pro
   <img src="./img/sample2.png" />
 </p>
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Xatta-Trone/medium-parser-extension&type=Date)](https://star-history.com/#Xatta-Trone/medium-parser-extension&Date)
+
 
 ### Updates
 
