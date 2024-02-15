@@ -3,21 +3,15 @@
 </p>
 
 <h1 align="center">Medium Parser</h1>
+*Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)*
 
-# The extension was removed from the Chrome Web Store on 15th February, 2024.
+# The extension was removed from the Chrome Web Store on 15th February 2024.
 ## Please install it manually to use it in your browser.
 
-*Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)*
 
 ## Installation Instructions
 ### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini/Thorium etc.)
-[![Download from chrome web store](img/chrome.png)](https://chrome.google.com/webstore/detail/medium-parser/egejbknaophaadmhijkepokfchkbnelc?hl=en&authuser=0) 
-
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/egejbknaophaadmhijkepokfchkbnelc)
- ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/egejbknaophaadmhijkepokfchkbnelc)
-
-
-Or install manually
+Install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
 1. Unzip the file and you should have a folder named `medium-parser-extension-main`.
 1. In Chrome/Edge go to the extensions page (`chrome://extensions` or `edge://extensions`).
