@@ -4,7 +4,7 @@
 
 <h1 align="center">Medium Parser</h1>
 
-# The extension was removed from the Chrome Web Store.
+# The extension was removed from the Chrome Web Store on 15th February, 2024.
 ## Please install it manually to use it in your browser.
 
 *Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)*
