@@ -14,6 +14,9 @@
 
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/bdkfodcnmgegolifeafnpbgjnjfohado)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/bdkfodcnmgegolifeafnpbgjnjfohado)
+![](https://img.shields.io/chrome-web-store/v/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
+![](https://img.shields.io/chrome-web-store/d/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
+![](https://img.shields.io/chrome-web-store/stars/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
 
 Or, Install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
