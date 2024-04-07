@@ -27,7 +27,7 @@ Or, Install manually
 
 
 ### Mozilla Firefox
-[![Download from mozilla add-ons](img/firefox.png)](https://addons.mozilla.org/en-US/firefox/addon/medium-parser/) 
+[![Download from mozilla add-ons](img/firefox.png)](https://addons.mozilla.org/addon/medium-parser/) 
 
 ![Mozilla Add-on Rating](https://img.shields.io/amo/rating/medium-parser) ![Mozilla Add-on Stars](https://img.shields.io/amo/stars/medium-parser)
 
