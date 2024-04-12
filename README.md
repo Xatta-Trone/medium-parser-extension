@@ -16,7 +16,6 @@
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/bdkfodcnmgegolifeafnpbgjnjfohado)
 ![](https://img.shields.io/chrome-web-store/v/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
 ![](https://img.shields.io/chrome-web-store/d/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
-![](https://img.shields.io/chrome-web-store/stars/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
 
 Or, Install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
@@ -29,7 +28,11 @@ Or, Install manually
 ### Mozilla Firefox
 [![Download from mozilla add-ons](img/firefox.png)](https://addons.mozilla.org/addon/medium-parser/) 
 
-![Mozilla Add-on Rating](https://img.shields.io/amo/rating/medium-parser) ![Mozilla Add-on Stars](https://img.shields.io/amo/stars/medium-parser)
+![Mozilla Add-on Rating](https://img.shields.io/amo/rating/medium-parser) 
+![Mozilla Add-on Version](https://img.shields.io/amo/v/medium-parser)
+![Mozilla Add-on Users](https://img.shields.io/amo/users/medium-parser)
+![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/medium-parser)
+
 
 
 ### Troubleshooting
