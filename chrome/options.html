@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medium Parser</title>
+    <link rel="stylesheet" href="boostrap.css" />
+    <link rel="shortcut icon" href="img/icon128.jpg" type="image/jpg" />
+  </head>
+  <body>
+    <div class="container mx-auto">
+      <div class="card my-5">
+        <div class="card-body">
+          <h1 class="card-title">Settings</h1>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Save your settings across all the browsers</h6>
+          <div class="mb-3">
+            <label for="showOption" class="form-label">Menu Options</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              id="showOption"
+            ></select>
+          </div>
+          <div class="mb-3" id="redirectOptionsEl">
+            <label for="redirectOptions" class="form-label"
+              >Redirect Options</label
+            >
+            <select
+              class="form-select"
+              aria-label="Default redirect options"
+              id="redirectOptions"
+            ></select>
+          </div>
+
+          <div
+            class="alert alert-success alert-dismissible mt-3"
+            id="alert-success"
+            style="display: none"
+            role="alert"
+          >
+            Settings updated !!
+          </div>
+
+          <div
+            class="alert alert-danger alert-dismissible mt-3"
+            id="alert-danger"
+            style="display: none"
+            role="alert"
+          >
+            Error updating settings !!
+          </div>
+
+          <button class="btn btn-primary" type="button" id="saveButton">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="bootstrap.js" type="text/javascript"></script>
+    <script src="options.js" type="text/javascript"></script>
+  </body>
+</html>
