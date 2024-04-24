@@ -117,11 +117,7 @@ function runMedium(url) {
   chrome.storage.sync.get('mediumParserSettings', function (result) {
     console.log(result);
     let settings = result.mediumParserSettings;
-    if (
-      settings.showOption == 'page' ||
-      settings == null ||
-      settings == undefined
-    ) {
+    if (settings == undefined || settings.showOption == 'page') {
       displayMenuOptions(url);
     }
 
