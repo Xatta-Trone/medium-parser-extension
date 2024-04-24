@@ -126,12 +126,16 @@ function runMedium(url) {
     }
 
     if (settings.showOption == 'redirect') {
-      handleRedirect(settings.redirectOption, url);
+      handleRedirect(
+        settings.redirectOption,
+        url,
+        settings.openInNewTab != undefined ? settings.openInNewTab : false
+      );
     }
   });
 }
 
-function handleRedirect(redirectTo, url) {
+function handleRedirect(redirectTo, url, openInNewTab) {
   // check the url
   const u = new URL(url);
   if (
@@ -148,7 +152,11 @@ function handleRedirect(redirectTo, url) {
     // console.log("Redirecting to ", url);
     // window.history.pushState({ path: newUrl }, '', newUrl);
     // Redirect to the new URL
-    window.location.href = newUrl;
+    if (openInNewTab) {
+      window.open(newUrl, '_blank').focus();
+    } else {
+      window.location.href = newUrl;
+    }
   }
 }
 

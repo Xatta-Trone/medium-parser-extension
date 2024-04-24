@@ -42,9 +42,12 @@ function buildOptions() {
       document.getElementById('showOption').value = settings.showOption;
       document.getElementById('redirectOptions').value =
         settings.redirectOption;
+      document.getElementById('openInNewTab').checked =
+        settings.openInNewTab != undefined ? settings.openInNewTab : false;
     } else {
       document.getElementById('showOption').value = 'page';
       document.getElementById('redirectOptions').value = 'archive_today';
+      document.getElementById('openInNewTab').checked = true;
     }
 
     if (settings && settings.showOption == 'redirect') {
@@ -70,10 +73,13 @@ document.getElementById('showOption').addEventListener('change', function () {
 document.getElementById('saveButton').addEventListener('click', function () {
   var showOptionValue = document.getElementById('showOption').value;
   var redirectOptionValue = document.getElementById('redirectOptions').value;
+  var openInNewTab = document.getElementById('openInNewTab').checked;
+  console.log(showOptionValue, redirectOptionValue, openInNewTab);
 
   let settings = {
     showOption: showOptionValue,
     redirectOption: redirectOptionValue,
+    openInNewTab,
   };
 
   try {
