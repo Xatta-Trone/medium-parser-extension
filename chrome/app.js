@@ -151,7 +151,21 @@ function handleRedirect(redirectTo, url, openInNewTab) {
     if (openInNewTab) {
       window.open(newUrl, '_blank').focus();
     } else {
-      window.location.href = newUrl;
+      let previousUrl = localStorage.getItem('redirectUrl');
+      console.log(previousUrl);
+      if (previousUrl != url) {
+        localStorage.setItem('redirectUrl', url);
+        // Create an anchor element
+        let anchor = document.createElement('a');
+        // Set the href attribute to the new URL
+        anchor.href = newUrl;
+        // Simulate a click event on the anchor element
+        anchor.click();
+        // window.location.href = newUrl;
+      } else {
+        // console.log('Already visited');
+      }
+
     }
   }
 }
