@@ -60,7 +60,6 @@ function init() {
   if (checkIfGoogleWebCache()) {
     return formatGoogleWebCache();
   }
-
   checkIfItIsMediumBlog();
 }
 
@@ -69,17 +68,11 @@ init();
 // checks if the page is google web cache and referred by this extension
 function checkIfGoogleWebCache() {
   const url = new URL(document.URL);
-
-  if (
+  return (
     url.hostname == 'webcache.googleusercontent.com' &&
     url.searchParams.has('referer', 'medium-parser') &&
     url.searchParams.has('vwsrc', '1')
-  ) {
-    // console.log("Hooray !!! It is referred by medium-parser extension");
-    return true;
-  }
-  // console.log("Nah !!! It is not referred by medium-parser extension");
-  return false;
+  );
 }
 
 // if it is a medium blog then run the script
@@ -114,76 +107,99 @@ function handleURLChange() {
 }
 
 function runMedium(url) {
+  // default settings
+  let defaultSettings = {
+    openInNewTab: true,
+    redirectOption: 'google',
+    showOption: 'page',
+  };
   chrome.storage.sync.get('mediumParserSettings', function (result) {
-    console.log(result);
-    let settings = result.mediumParserSettings;
-    if (settings == undefined || settings.showOption == 'page') {
+    let userSetting = result.mediumParserSettings;
+    if (userSetting) {
+      // merge the user settings with the default settings
+      defaultSettings = {
+        ...defaultSettings,
+        ...userSetting,
+      };
+    }
+    console.log(result, defaultSettings);
+    if (defaultSettings.showOption == 'page') {
       displayMenuOptions(url);
     }
 
-    if (settings.showOption == 'redirect') {
+    if (defaultSettings.showOption == 'redirect') {
       handleRedirect(
-        settings.redirectOption,
+        defaultSettings.redirectOption,
         url,
-        settings.openInNewTab != undefined ? settings.openInNewTab : false
+        defaultSettings.openInNewTab
       );
     }
   });
 }
 
+// Redirect based on the user setting
 function handleRedirect(redirectTo, url, openInNewTab) {
   // check the url
-  const u = new URL(url);
-  if (
-    ignoreURLs.indexOf(u.pathname) == -1 &&
-    checkWildCardPaths(u.pathname) == false &&
-    checkUserProfile(u.pathname) == false &&
-    u.pathname.split('/').filter((e) => e).length >= 1
-  ) {
+  if (checkValidURLAndShouldProceed(url)) {
     let redirectOption = 'archive_today';
     if (redirectTo in urlOptions) {
       redirectOption = redirectTo;
     }
     let newUrl = urlOptions[redirectOption].uri.replace('#{url}#', url);
     // console.log("Redirecting to ", url);
-    // window.history.pushState({ path: newUrl }, '', newUrl);
     // Redirect to the new URL
     if (openInNewTab) {
       window.open(newUrl, '_blank').focus();
     } else {
-      let previousUrl = localStorage.getItem('redirectUrl');
-      console.log(previousUrl);
-      if (previousUrl != url) {
-        localStorage.setItem('redirectUrl', url);
-        // Create an anchor element
-        let anchor = document.createElement('a');
-        // Set the href attribute to the new URL
-        anchor.href = newUrl;
-        // Simulate a click event on the anchor element
-        anchor.click();
-        // window.location.href = newUrl;
-      } else {
-        // console.log('Already visited');
+      const divId = 'medium-parser-redirect-message';
+      // do the cleanup
+      // remove the element
+      const el = document.getElementById(divId);
+      if (el != undefined || el != null) {
+        el.remove();
       }
-
+      // check if the url has already been visited.
+      // if yes then do nothing
+      // if no then proceed with the redirect
+      let previousUrl = sessionStorage.getItem('redirectUrl');
+      console.log(previousUrl, url);
+      if (previousUrl != url) {
+        sessionStorage.setItem('redirectUrl', url);
+        let anchor = document.createElement('a');
+        anchor.href = newUrl;
+        anchor.click();
+      } else {
+        console.log('Already visited');
+        // Select the div right next to the h1
+        let divNextToH1 = document.querySelector('h1 + div');
+        if(divNextToH1 == null) {
+          divNextToH1 = document.querySelector('h2 + div');
+        }
+        console.log(divNextToH1);
+        // Create a new div element
+        const newDiv = document.createElement('a');
+        newDiv.id = divId;
+        newDiv.textContent =
+          'You have already visited this page using Medium Parser. Click here to visit again.';
+        newDiv.href = newUrl;
+        newDiv.setAttribute(
+          'style',
+          'padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;'
+        );
+        // Insert the new div after the selected div
+        divNextToH1.parentNode.insertBefore(newDiv, divNextToH1.nextSibling);
+      }
     }
   }
 }
 
+// Show the links on the page
 function displayMenuOptions(url) {
-  // check the url
-  const u = new URL(url);
-
   // check if it is a page
   const root = document.getElementById('root');
   root.style.position = 'relative';
 
-  if (
-    ignoreURLs.indexOf(u.pathname) == -1 &&
-    checkWildCardPaths(u.pathname) == false &&
-    checkUserProfile(u.pathname) == false &&
-    u.pathname.split('/').filter((e) => e).length >= 1
-  ) {
+  if (checkValidURLAndShouldProceed(url)) {
     var leftDiv = document.createElement('div');
     leftDiv.id = 'medium-parser';
     leftDiv.setAttribute(
@@ -193,7 +209,7 @@ function displayMenuOptions(url) {
 
     let buttons = [];
     for (const [key, value] of Object.entries(urlOptions)) {
-      console.log(key, value);
+      // console.log(key, value);
       buttons.push(createButton(value.text, value.uri.replace('#{url}#', url)));
     }
 
@@ -208,7 +224,6 @@ function displayMenuOptions(url) {
   } else {
     // remove the element
     const el = document.getElementById('medium-parser');
-
     if (el != undefined || el != null) {
       el.remove();
     }
@@ -225,7 +240,7 @@ function formatGoogleWebCache() {
   document.body.innerHTML = contents;
   document.title = 'Medium parser - ' + title;
 }
-
+// Decode HTML to tags
 function htmlDecode(rawContent) {
   var entities = {
     '&amp;': '&',
@@ -242,7 +257,7 @@ function htmlDecode(rawContent) {
   }
   return rawContent;
 }
-
+// get the page title
 function getTitle(rawContent) {
   start = '<title data-rh="true">';
   end = '</title>';
@@ -250,7 +265,7 @@ function getTitle(rawContent) {
   var endPos = rawContent.indexOf(end);
   return rawContent.substring(startPos, endPos).trim();
 }
-
+// Create the message element
 function createMessageElement() {
   // old API
   messageEl = document.createElement('div');
@@ -262,7 +277,7 @@ function createMessageElement() {
   );
   return messageEl;
 }
-
+// Create the support button element
 function createSupportElement() {
   btnEl = document.createElement('div');
   btnEl.innerHTML =
@@ -291,6 +306,17 @@ function createButton(text, url) {
   return btnEl;
 }
 
+// This function checks if the url is valid and should proceed
+function checkValidURLAndShouldProceed(url) {
+  let u = new URL(url);
+  return (
+    ignoreURLs.indexOf(u.pathname) == -1 &&
+    checkWildCardPaths(u.pathname) == false &&
+    checkUserProfile(u.pathname) == false &&
+    u.pathname.split('/').filter((e) => e).length >= 1
+  );
+}
+
 function checkWildCardPaths(currentPath) {
   let splittedCurrentPath = currentPath.split('/').filter((e) => e);
   const match = (url) => {
@@ -309,3 +335,4 @@ function checkUserProfile(currentPath) {
   }
   return false;
 }
+
