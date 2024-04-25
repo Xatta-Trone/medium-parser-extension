@@ -169,13 +169,13 @@ function handleRedirect(redirectTo, url, openInNewTab) {
         anchor.href = newUrl;
         anchor.click();
       } else {
-        console.log('Already visited');
+        // console.log('Already visited');
         // Select the div right next to the h1
         let divNextToH1 = document.querySelector('h1 + div');
-        if(divNextToH1 == null) {
+        if (divNextToH1 == null) {
           divNextToH1 = document.querySelector('h2 + div');
         }
-        console.log(divNextToH1);
+        // console.log(divNextToH1);
         // Create a new div element
         const newDiv = document.createElement('a');
         newDiv.id = divId;
@@ -186,8 +186,10 @@ function handleRedirect(redirectTo, url, openInNewTab) {
           'style',
           'padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;'
         );
-        // Insert the new div after the selected div
-        divNextToH1.parentNode.insertBefore(newDiv, divNextToH1.nextSibling);
+        if (divNextToH1) {
+          // Insert the new div after the selected div
+          divNextToH1.parentNode.insertBefore(newDiv, divNextToH1.nextSibling);
+        }
       }
     }
   }

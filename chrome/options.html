@@ -15,59 +15,73 @@
           <h6 class="card-subtitle mb-2 text-body-secondary">
             Save your settings across all the browsers
           </h6>
-          <div class="mb-3">
-            <label for="showOption" class="form-label">Menu Options</label>
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              id="showOption"
-            ></select>
-          </div>
-          <div class="mb-3" id="redirectOptionsEl">
-            <label for="redirectOptions" class="form-label"
-              >Redirect Options</label
-            >
-            <select
-              class="form-select"
-              aria-label="Default redirect options"
-              id="redirectOptions"
-            ></select>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="showOption" class="form-label">Menu Options</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="showOption"
+                ></select>
+              </div>
+              <div class="mb-3" id="redirectOptionsEl">
+                <label for="redirectOptions" class="form-label"
+                  >Redirect Options</label
+                >
+                <select
+                  class="form-select"
+                  aria-label="Default redirect options"
+                  id="redirectOptions"
+                ></select>
 
-            <div class="form-check mt-1">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="openInNewTab"
-                checked
-              />
-              <label class="form-check-label" for="openInNewTab">
-                Open in a new tab
-              </label>
+                <div class="form-check mt-1">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="openInNewTab"
+                    checked
+                  />
+                  <label class="form-check-label" for="openInNewTab">
+                    Open in a new tab
+                  </label>
+                </div>
+              </div>
+              <div
+                class="alert alert-success alert-dismissible mt-3"
+                id="alert-success"
+                style="display: none"
+                role="alert"
+              >
+                Settings updated !!
+              </div>
+
+              <div
+                class="alert alert-danger alert-dismissible mt-3"
+                id="alert-danger"
+                style="display: none"
+                role="alert"
+              >
+                Error updating settings !!
+              </div>
+
+              <button class="btn btn-primary" type="button" id="saveButton">
+                Save Changes
+              </button>
+            </div>
+            <div class="col-md-6">
+              <div id="previewDiv">
+                <h3>Preview</h3>
+                <img
+                  src="/img/icon128.jpg"
+                  id="previewImg"
+                  alt="previewImg"
+                  style="height: 80%; width: auto"
+                />
+              </div>
             </div>
           </div>
-
-          <div
-            class="alert alert-success alert-dismissible mt-3"
-            id="alert-success"
-            style="display: none"
-            role="alert"
-          >
-            Settings updated !!
-          </div>
-
-          <div
-            class="alert alert-danger alert-dismissible mt-3"
-            id="alert-danger"
-            style="display: none"
-            role="alert"
-          >
-            Error updating settings !!
-          </div>
-
-          <button class="btn btn-primary" type="button" id="saveButton">
-            Save Changes
-          </button>
         </div>
       </div>
     </div>

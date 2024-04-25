@@ -50,11 +50,8 @@ function buildOptions() {
       document.getElementById('openInNewTab').checked = true;
     }
 
-    if (settings && settings.showOption == 'redirect') {
-      toggleRedirectOptionsEl(true);
-    } else {
-      toggleRedirectOptionsEl(false);
-    }
+    // trigger change event to show preview img
+    showOption.dispatchEvent(new Event('change'));
   });
 }
 
@@ -67,6 +64,24 @@ document.getElementById('showOption').addEventListener('change', function () {
     toggleRedirectOptionsEl(true);
   } else {
     toggleRedirectOptionsEl(false);
+  }
+
+  // show preview img
+  let imgEl = document.getElementById('previewImg');
+  
+  if (selectedValue == 'redirect') {
+    imgEl.style.display = 'none';
+    imgEl.src = '';
+  }
+
+  if (selectedValue == 'context') {
+    imgEl.style.display = 'block';
+    imgEl.src = '/img/preview-context.png';
+  }
+
+  if (selectedValue == 'page') {
+    imgEl.style.display = 'block';
+    imgEl.src = '/img/preview-menu.png';
   }
 });
 
