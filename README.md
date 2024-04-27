@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./img/icon128.jpg" />
+  <img src="./chrome/img/icon128.jpg" />
 </p>
 
 <h1 align="center">Medium Parser</h1>
@@ -10,7 +10,7 @@
 
 ## Installation Instructions
 ### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini/Thorium etc.)
-[![Download from Chrome Web store](img/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/bdkfodcnmgegolifeafnpbgjnjfohado) 
+[![Download from Chrome Web store](chrome/img/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/bdkfodcnmgegolifeafnpbgjnjfohado) 
 
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/bdkfodcnmgegolifeafnpbgjnjfohado)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/bdkfodcnmgegolifeafnpbgjnjfohado)
@@ -22,11 +22,11 @@ Or, Install manually
 1. Unzip the file and you should have a folder named `medium-parser-extension-main`.
 1. In Chrome/Edge go to the extensions page (`chrome://extensions` or `edge://extensions`).
 1. Enable Developer Mode by clicking the toggle button on the top right side of the browser.
-1. Drag the `medium-parser-extension-main` folder anywhere on the page to import it (do not delete the folder afterward).
+1. Drag the `chrome` folder anywhere on the page to import it (do not delete the folder afterward).
 
 
 ### Mozilla Firefox
-[![Download from mozilla add-ons](img/firefox.png)](https://addons.mozilla.org/addon/medium-parser/) 
+[![Download from mozilla add-ons](chrome/img/firefox.png)](https://addons.mozilla.org/addon/medium-parser/) 
 
 ![Mozilla Add-on Rating](https://img.shields.io/amo/rating/medium-parser) 
 ![Mozilla Add-on Version](https://img.shields.io/amo/v/medium-parser)
@@ -51,7 +51,7 @@ Your contribution allows me to spend more time making this kind of extension/pro
 
 ## Preview
 <p align="center">
-  <img src="./img/sample2.png" />
+  <img src="./chrome/img/sample2.png" />
 </p>
 
 ## Star History

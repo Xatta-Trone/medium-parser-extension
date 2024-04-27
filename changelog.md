@@ -1,5 +1,8 @@
 # Changelog
 
+#### 1.5.4 
+[Issue #25](https://github.com/Xatta-Trone/medium-parser-extension/issues/25)  Added more options and more supporting sites.
+
 #### 1.5.3
 [Issue #21](https://github.com/Xatta-Trone/medium-parser-extension/issues/21) `@username` and `/me/*` path excluded.
 
