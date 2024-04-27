@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medium Parser</title>
+    <link rel="stylesheet" href="boostrap.css" />
+    <link rel="shortcut icon" href="img/icon128.jpg" type="image/jpg" />
+  </head>
+  <body style="background-color: #e9eeee">
+    <div class="container mx-auto">
+      <div class="card my-5">
+        <div class="card-body">
+          <h1 class="card-title">Settings</h1>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            Save your settings across all the browsers
+          </h6>
+          <!-- tabs -->
+          <div class="d-flex align-items-start mt-4">
+            <div
+              class="nav flex-column nav-pills me-3"
+              id="v-pills-tab"
+              role="tablist"
+              aria-orientation="vertical"
+            >
+              <button
+                class="nav-link active"
+                id="v-pills-settings-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-settings"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-settings"
+                aria-selected="true"
+              >
+                Settings
+              </button>
+              <button
+                class="nav-link"
+                id="v-pills-instructions-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-instructions"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-instructions"
+                aria-selected="false"
+              >
+                Tutorial
+              </button>
+              <button
+                class="nav-link"
+                id="v-pills-disclaimer-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-disclaimer"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-disclaimer"
+                aria-selected="false"
+              >
+                Disclaimer
+              </button>
+            </div>
+            <div
+              class="tab-content flex-grow-1 br-1 border border-1 p-3 rounded-1"
+              id="v-pills-tabContent"
+            >
+              <div
+                class="tab-pane fade show active"
+                id="v-pills-settings"
+                role="tabpanel"
+                aria-labelledby="v-pills-settings-tab"
+                tabindex="0"
+              >
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="showOption" class="form-label"
+                        >Menu Options</label
+                      >
+                      <select
+                        class="form-select"
+                        aria-label="Default select example"
+                        id="showOption"
+                      ></select>
+                    </div>
+                    <div class="mb-3" id="redirectOptionsEl">
+                      <label for="redirectOptions" class="form-label"
+                        >Redirect Options</label
+                      >
+                      <select
+                        class="form-select"
+                        aria-label="Default redirect options"
+                        id="redirectOptions"
+                      ></select>
+
+                      <div class="form-check mt-1">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="openInNewTab"
+                          checked
+                        />
+                        <label class="form-check-label" for="openInNewTab">
+                          Open in a new tab
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="alert alert-success alert-dismissible mt-3"
+                      id="alert-success"
+                      style="display: none"
+                      role="alert"
+                    >
+                      Settings updated !!
+                    </div>
+
+                    <div
+                      class="alert alert-danger alert-dismissible mt-3"
+                      id="alert-danger"
+                      style="display: none"
+                      role="alert"
+                    >
+                      Error updating settings !!
+                    </div>
+
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      id="saveButton"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div id="previewDiv">
+                      <h3>Preview</h3>
+                      <img
+                        src="/img/icon128.jpg"
+                        id="previewImg"
+                        alt="previewImg"
+                        style="height: 80%; width: auto"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="v-pills-instructions"
+                role="tabpanel"
+                aria-labelledby="v-pills-instructions-tab"
+                tabindex="0"
+              >
+                <p>
+                  Please watch this youtube video to know how to use this
+                  extension.
+                </p>
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/yMEDwYrsl6I?si=MTFtrSJOpKFHsl8W"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="v-pills-disclaimer"
+                role="tabpanel"
+                aria-labelledby="v-pills-disclaimer-tab"
+                tabindex="0"
+              >
+                <h4>Disclaimer:</h4>
+
+                <p>
+                  The following statement serves as a cautionary notice
+                  regarding the use of the Medium Parser Extension:
+                </p>
+                <p>Important Considerations:</p>
+
+                <p>
+                  While the Medium Parser Extension provides a means to access
+                  premium Medium articles without payment, it is paramount to
+                  approach this method with caution and ethical responsibility.
+                  Here are a few essential considerations to bear in mind:
+                </p>
+                <br />
+                <ol>
+                  <li>
+                    Support the creators: Content creators on Medium invest
+                    their time and expertise in crafting valuable articles.
+                    Whenever feasible, consider supporting them by subscribing
+                    to Medium’s paid membership or exploring legitimate avenues
+                    to access their content.
+                  </li>
+                  <li>
+                    Legalities and terms of use: The use of the Medium Parser
+                    Extension may potentially violate Medium’s terms of service
+                    or other legal agreements. It’s imperative to understand the
+                    potential repercussions of utilizing this method, as it
+                    could lead to account suspension or other penalties.
+                  </li>
+                  <li>
+                    Fair compensation: Bypassing the paywall effectively
+                    circumvents the system that ensures fair compensation for
+                    writers. Contemplate the consequences this may have on the
+                    platform’s sustainability and the ability of writers to
+                    continue producing quality content.
+                  </li>
+                </ol>
+                By proceeding to use the Medium Parser Extension, users
+                acknowledge and accept the aforementioned considerations. The
+                extension’s developers and affiliates disclaim any
+                responsibility for misuse or violation of Medium’s terms of
+                service. Users are encouraged to act in accordance with ethical
+                standards and legal obligations when accessing Medium content
+                through third-party means.
+              </div>
+            </div>
+          </div>
+          <!-- tabs -->
+
+          <div class="my-4 text-center">
+            <p class="text-secondary-emphasis">
+              Extension maybe taken down for violation of rules and services. (the previous one was take down with 40,000+ daily active users)<br />
+              Please bookmark this page to get the updates.
+              <img src="/img/icon-github.png" height="24" alt="GitHub Icon" />
+              <a
+                target="_blank"
+                href="https://github.com/Xatta-Trone/medium-parser-extension"
+                >https://github.com/Xatta-Trone/medium-parser-extension</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bootstrap.js" type="text/javascript"></script>
+    <script src="options.js" type="text/javascript"></script>
+  </body>
+</html>

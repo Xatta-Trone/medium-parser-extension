@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Medium Parser",
+  "version": "1.5.4",
+  "description": "Read medium based articles for free.",
+  "icons": {
+    "16": "img/icon16.jpg",
+    "32": "img/icon32.jpg",
+    "48": "img/icon48.jpg",
+    "64": "img/icon64.jpg",
+    "128": "img/icon128.jpg",
+    "96": "img/icon96.jpg"
+  },
+  "permissions": ["storage", "contextMenus"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_icon": "img/icon128.jpg"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["app.js"]
+    }
+  ]
+}
