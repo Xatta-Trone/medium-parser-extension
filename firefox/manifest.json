@@ -27,7 +27,7 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "addon@medium-parser.com"
+      "id": "medium-parser@example.com"
     }
   }
 }
