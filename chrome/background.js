@@ -30,7 +30,9 @@ chrome.action.onClicked.addListener(function (tab) {
   chrome.tabs.create({ url: 'options.html' });
 });
 
+
 chrome.runtime.onInstalled.addListener(function () {
+  chrome.tabs.create({ url: 'options.html' });
   chrome.contextMenus.create({
     id: parentMenuId,
     title: 'Medium Parser',
