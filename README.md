@@ -47,7 +47,7 @@ Or, Install manually
 Please consider a donation if you find this extension helps you daily.
 Your contribution allows me to spend more time making this kind of extension/project.
 
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/monzurulislam1112?country.x=US&locale.x=en_US) 
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/imonzurul?country.x=US&locale.x=en_US) 
 [![Wise](https://img.shields.io/badge/Wise-394e79?style=for-the-badge&logo=wise&logoColor=00B9FF)](https://wise.com/pay/me/mdmonzuruli4)
 
 ## Preview
