@@ -8,15 +8,16 @@
 ### 15th February 2024: The extension was taken down by the Chrome Web Store (40k+ DAU).
 ### 25th February 2024: Uploaded a new version to the Chrome Web Store.
 ### 8th September 2024: The extension was taken down by the Chrome Web Store (30k+ DAU).
+### 16th October 2024: Uploaded a new version to the Chrome Web Store.
 
 ## Installation Instructions
 ### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini/Thorium etc.)
-[![Download from Chrome Web store](chrome/img/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/bdkfodcnmgegolifeafnpbgjnjfohado) 
+[![Download from Chrome Web store](chrome/img/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/elgmajanahbjpbcljflifdnnmpodfiij) 
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/bdkfodcnmgegolifeafnpbgjnjfohado)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/bdkfodcnmgegolifeafnpbgjnjfohado)
-![](https://img.shields.io/chrome-web-store/v/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
-![](https://img.shields.io/chrome-web-store/d/bdkfodcnmgegolifeafnpbgjnjfohado.svg?style=flat-square)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/elgmajanahbjpbcljflifdnnmpodfiij)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/elgmajanahbjpbcljflifdnnmpodfiij)
+![](https://img.shields.io/chrome-web-store/v/elgmajanahbjpbcljflifdnnmpodfiij.svg?style=flat-square)
+![](https://img.shields.io/chrome-web-store/d/elgmajanahbjpbcljflifdnnmpodfiij.svg?style=flat-square)
 
 Or, Install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).
