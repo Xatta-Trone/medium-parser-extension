@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Medium Parser</h1>
-*Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)*
+Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)
 
 
 ### Upload Status
