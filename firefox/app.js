@@ -198,7 +198,10 @@ function handleRedirect(redirectTo, url, openInNewTab) {
 // Show the links on the page
 function displayMenuOptions(url) {
   // check if it is a page
-  const root = document.getElementById('root');
+  const root = document.getElementById('root') || document.body;
+  if (!root) {
+    return;
+  }
   root.style.position = 'relative';
 
   if (checkValidURLAndShouldProceed(url)) {
