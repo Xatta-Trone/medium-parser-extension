@@ -65,5 +65,5 @@ Your contribution allows me to spend more time making this kind of extension/pro
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Xatta-Trone/medium-parser-extension&type=Date)](https://star-history.com/#Xatta-Trone/medium-parser-extension&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=Xatta-Trone/medium-parser-extension&type=Date)](https://star-history.dera.page/#Xatta-Trone/medium-parser-extension&Date)
 
