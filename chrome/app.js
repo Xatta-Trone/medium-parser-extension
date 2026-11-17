@@ -79,11 +79,17 @@ function checkIfGoogleWebCache() {
 function checkIfItIsMediumBlog() {
   const e = /https?:\/\/cdn-(?:static|client)(?:-\d)?\.medium\.com\//;
 
-  if (
-    [...document.querySelectorAll('script')].filter((r) => e.test(r.src))
-      .length > 0 ||
-    e.test(window.location.hostname)
-  ) {
+  const host = window.location.hostname;
+  const isMediumHost = host === 'medium.com' || host.endsWith('.medium.com');
+  // Medium adds this tag to every page, including custom-domain publications
+  const hasMediumMeta = !!document.querySelector(
+    'meta[property="al:android:package"][content="com.medium.reader"]'
+  );
+  const hasMediumScript = [...document.querySelectorAll('script')].some((r) =>
+    e.test(r.src)
+  );
+
+  if (isMediumHost || hasMediumMeta || hasMediumScript) {
     // console.log("Is a medium blog !", handleURLChange());
     handleURLChange();
   } else {
@@ -202,14 +208,13 @@ function displayMenuOptions(url) {
   if (!root) {
     return;
   }
-  root.style.position = 'relative';
 
   if (checkValidURLAndShouldProceed(url)) {
     var leftDiv = document.createElement('div');
     leftDiv.id = 'medium-parser';
     leftDiv.setAttribute(
       'style',
-      'position:absolute;z-index:1;top:150px;right:150px;'
+      'position:fixed;z-index:2147483647;top:120px;right:24px;'
     );
 
     let buttons = [];
@@ -321,8 +326,8 @@ function checkWildCardPaths(currentPath) {
 function checkUserProfile(currentPath) {
   let splittedCurrentPath = currentPath.split('/').filter((e) => e);
   if (
-    splittedCurrentPath[0].startsWith('@') &&
-    splittedCurrentPath.length == 1
+    splittedCurrentPath.length == 1 &&
+    splittedCurrentPath[0].startsWith('@')
   ) {
     return true;
   }
