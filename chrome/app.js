@@ -208,14 +208,13 @@ function displayMenuOptions(url) {
   if (!root) {
     return;
   }
-  root.style.position = 'relative';
 
   if (checkValidURLAndShouldProceed(url)) {
     var leftDiv = document.createElement('div');
     leftDiv.id = 'medium-parser';
     leftDiv.setAttribute(
       'style',
-      'position:absolute;z-index:1;top:150px;right:150px;'
+      'position:fixed;z-index:2147483647;top:120px;right:24px;'
     );
 
     let buttons = [];
