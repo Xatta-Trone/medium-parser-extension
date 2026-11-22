@@ -89,7 +89,8 @@ function loadScripts(dir, { root = null, body = null, storage = {} } = {}) {
   return sandbox;
 }
 
-for (const dir of ['chrome', 'firefox']) {
+{
+  const dir = 'chrome';
   test(`${dir} displayMenuOptions tolerates pages without #root or body`, () => {
     const sandbox = loadScripts(dir);
 

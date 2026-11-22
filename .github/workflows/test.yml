@@ -25,24 +25,10 @@ jobs:
       - name: Run tests
         run: node --test tests/
 
-      # Every file except manifest.json must be the same in both builds,
-      # so a change made in one folder must be copied to the other.
-      - name: Check chrome/ and firefox/ are in sync
-        run: |
-          if ! diff -r --exclude=manifest.json chrome firefox; then
-            echo "::error::chrome/ and firefox/ differ outside manifest.json. Copy the change to both folders."
-            exit 1
-          fi
-
-      - name: Check manifest versions match
-        run: |
-          firefox=$(node -p "require('./firefox/manifest.json').version")
-          chrome=$(node -p "require('./chrome/manifest.json').version")
-          if [ "$firefox" != "$chrome" ]; then
-            echo "::error::firefox/manifest.json ($firefox) and chrome/manifest.json ($chrome) have different versions."
-            exit 1
-          fi
-          echo "Both manifests are at $chrome."
+      # firefox/ has only its manifest; the add-on is built from chrome/.
+      # The tests also check that both manifests have the same version.
+      - name: Build Firefox add-on
+        run: node scripts/build-firefox.mjs
 
       - name: Lint Firefox build
-        run: npx --yes web-ext@10.8.0 lint --source-dir firefox
+        run: npx --yes web-ext@10.8.0 lint --source-dir build/firefox

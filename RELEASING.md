@@ -17,7 +17,24 @@ fails at the submit step. Open the item in the
 **Privacy** tab, then click **Submit for review** there. You don't need to re-run the workflow.
 Firefox isn't affected.
 
-The rest of this page covers the one-time setup, what the workflows do, and what to do if one fails.
+The rest of this page covers the code layout, the one-time setup, what the workflows do, and what
+to do if one fails.
+
+## Code layout
+
+All the extension's code lives in `chrome/`. `firefox/` contains only the Firefox `manifest.json`.
+To get the Firefox add-on, build it:
+
+```bash
+node scripts/build-firefox.mjs
+```
+
+This writes `build/firefox/`: everything in `chrome/` except its manifest, plus
+`firefox/manifest.json`. To try it in Firefox, open `about:debugging#/runtime/this-firefox`, click
+**Load Temporary Add-on**, and pick `build/firefox/manifest.json`. Rebuild after each change.
+
+Change code only in `chrome/`. A change to a manifest usually belongs in both manifests; the tests
+check that the versions, permissions and content scripts match.
 
 | Store | Workflow |
 | --- | --- |
@@ -70,7 +87,7 @@ current status without changing anything.
    and publish it.
 3. Both workflows then:
    - check that the tag and both manifests have the same version
-   - run the tests (Firefox also runs `web-ext lint`)
+   - run the tests (Firefox also builds `build/firefox/` and runs `web-ext lint` on it)
    - build `medium-parser-<firefox|chrome>-<version>.zip` and attach it to the release
    - submit the version to their store
 
