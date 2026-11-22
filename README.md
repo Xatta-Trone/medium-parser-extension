@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Medium Parser</h1>
-Medium parser is a web browser extension to help read the member-only articles on medium.com and medium.com-based sites (e.g. towards-data-science)
+Medium parser is a web browser extension to help read the member-only articles on medium.com and publications hosted on Medium, including those on their own domain.
 
 
 ### Upload Status
@@ -45,8 +45,7 @@ Or, Install manually
 
 
 ### Troubleshooting
-* This extension pulls the data from `webcache.googleusercontent.com`; then removes all the scripts and sends back the html and css contents only. It might not work when there is no data from the request. 
-* For [archive.is](https://archive.is/), it simply redirects you with the data. 
+* The extension sends the article to a third-party reader (Freedium, Read-Medium, Archive.today or Archive.is). If one of them has no copy of the article or is down, try another one.
 
 ### Credits / Ideas
 *  [This article on reddit.com](https://www.reddit.com/r/ChatGPT/comments/138jt64/you_can_read_medium_articles_for_free_using_bing/)
