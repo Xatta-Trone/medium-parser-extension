@@ -1,0 +1,100 @@
+name: Publish Chrome extension
+
+# Publishing a GitHub release submits that version to the Chrome Web Store.
+# Run it by hand from the Actions tab to build and check the store
+# credentials (read-only) without submitting.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      submit:
+        description: 'Submit to the Chrome Web Store (leave off to only build and check credentials)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # attach the built zip to the release
+
+concurrency:
+  group: publish-chrome
+  cancel-in-progress: false
+
+env:
+  CWS_EXTENSION_ID: elgmajanahbjpbcljflifdnnmpodfiij
+
+jobs:
+  publish:
+    # pre-releases are for testing; don't send them to the store
+    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+
+      - name: Check versions match
+        id: version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          firefox=$(node -p "require('./firefox/manifest.json').version")
+          chrome=$(node -p "require('./chrome/manifest.json').version")
+          echo "firefox/manifest.json: $firefox, chrome/manifest.json: $chrome"
+          if [ "$firefox" != "$chrome" ]; then
+            echo "::error::firefox/manifest.json ($firefox) and chrome/manifest.json ($chrome) have different versions."
+            exit 1
+          fi
+          if [ -n "$TAG" ] && [ "${TAG#v}" != "$chrome" ]; then
+            echo "::error::Release tag $TAG does not match the manifest version $chrome. Bump the manifests or retag."
+            exit 1
+          fi
+          echo "version=$chrome" >> "$GITHUB_OUTPUT"
+
+      - name: Run tests
+        run: node --test tests/
+
+      - name: Build zip
+        id: zip
+        run: |
+          mkdir -p dist
+          file="dist/medium-parser-chrome-${{ steps.version.outputs.version }}.zip"
+          (cd chrome && zip -qr -X "../$file" .)
+          unzip -l "$file" | tail -1
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+
+      - name: Upload zip as workflow artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: medium-parser-chrome-${{ steps.version.outputs.version }}
+          path: ${{ steps.zip.outputs.file }}
+
+      - name: Attach zip to release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" "${{ steps.zip.outputs.file }}" --clobber
+
+      - name: Check store credentials
+        if: github.event_name == 'workflow_dispatch' && !inputs.submit
+        env:
+          CWS_SERVICE_ACCOUNT_KEY: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
+          CWS_PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
+        run: |
+          if [ -z "$CWS_SERVICE_ACCOUNT_KEY" ] || [ -z "$CWS_PUBLISHER_ID" ]; then
+            echo "::warning::CWS_SERVICE_ACCOUNT_KEY / CWS_PUBLISHER_ID secrets aren't set yet; skipping the credentials check."
+            exit 0
+          fi
+          node scripts/chrome-webstore.mjs status
+
+      - name: Submit to Chrome Web Store
+        if: github.event_name == 'release' || inputs.submit
+        env:
+          CWS_SERVICE_ACCOUNT_KEY: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
+          CWS_PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
+        # Uploads, then submits for review. It doesn't wait for the review;
+        # the new version goes live automatically once Google approves it.
+        run: node scripts/chrome-webstore.mjs publish "${{ steps.zip.outputs.file }}"
