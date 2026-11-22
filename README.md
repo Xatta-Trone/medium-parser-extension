@@ -58,6 +58,15 @@ Or, Install manually
 ### Troubleshooting
 * The extension sends the article to a third-party reader (Freedium, Read-Medium, Archive.today or Archive.is). If one of them has no copy of the article or is down, try another one.
 
+### Development
+All the code lives in `chrome/`; `firefox/` holds only the Firefox `manifest.json`. You need Node.js (the version in `.nvmrc`).
+
+* Load `chrome/` as an unpacked extension (see the manual install steps above).
+* For Firefox, run `node scripts/build-firefox.mjs`, then load `build/firefox/manifest.json` from `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on**.
+* Run the tests with `node --test tests/`.
+
+See [RELEASING.md](RELEASING.md) for the code layout and how releases reach both stores.
+
 ### Credits / Ideas
 *  [This article on reddit.com](https://www.reddit.com/r/ChatGPT/comments/138jt64/you_can_read_medium_articles_for_free_using_bing/)
 
