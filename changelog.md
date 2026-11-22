@@ -1,6 +1,6 @@
 # Changelog
 
-#### 1.6.5
+#### 1.6.6
 [Issue #50](https://github.com/Xatta-Trone/medium-parser-extension/issues/50) Clicking the toolbar icon now opens a popup with the services, instead of the settings page.
 
 [Issue #42](https://github.com/Xatta-Trone/medium-parser-extension/issues/42) Turn services on or off and reorder them by dragging (or with the ↑/↓ buttons). The page buttons, popup and right-click menu follow your order.
@@ -19,6 +19,7 @@ Settings page: full width, live preview, Tutorial tab removed.
 
 [PR #47](https://github.com/Xatta-Trone/medium-parser-extension/pull/47) The settings page opens only on first install, not on every update.
 
+#### 1.6.5
 [PR #45](https://github.com/Xatta-Trone/medium-parser-extension/pull/45) Updated the Freedium link.
 
 #### 1.5.4 
