@@ -190,7 +190,7 @@ function displayMenuOptions(
 function createButton(text, url) {
   const btnEl = document.createElement('a');
   btnEl.href = url;
-  btnEl.innerHTML = text;
+  btnEl.textContent = text;
   btnEl.setAttribute(
     'style',
     'padding:14px 25px; color:white; background: #242424; display:block; margin-top:10px;text-align:center;'
