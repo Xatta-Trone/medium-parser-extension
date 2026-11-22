@@ -1,65 +1,62 @@
-const urlOptions = {
-  google: {
-    text: 'Open in Google Cache',
-    uri: `http://webcache.googleusercontent.com/search?q=cache:#{url}#&strip=0&vwsrc=1&referer=medium-parser`,
-  },
-  readmedium: {
-    text: 'Open in Read-Medium',
-    uri: `https://readmedium.com/en/#{url}#`,
-  },
-  freedium: {
-    text: 'Open in Freedium',
-    uri: `https://freedium-mirror.cfd/#{url}#`,
-  },
-  archive_today: {
-    text: 'Open in Archive.today',
-    uri: `https://archive.today?url=#{url}#&run=1&referer=medium-parser`,
-  },
-  archive_is: {
-    text: 'Open in Archive.is',
-    uri: `https://archive.is?url=#{url}#&run=1&referer=medium-parser`,
-  },
-  proxy: {
-    text: 'Open in Proxy API',
-    uri: `https://medium-parser.vercel.app/?url=#{url}#`,
-  },
-};
+// Chrome runs this as a service worker; Firefox loads common.js first via the
+// manifest's background.scripts.
+if (typeof importScripts === 'function') {
+  importScripts('common.js');
+}
+
 const parentMenuId = 'mediumParserContextMenu';
 
-chrome.action.onClicked.addListener(function (tab) {
-  chrome.tabs.create({ url: 'options.html' });
-});
-
-
-chrome.runtime.onInstalled.addListener(function (details) {
+api.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
-    chrome.tabs.create({ url: 'options.html' });
+    api.tabs.create({ url: 'options.html' });
   }
+  buildContextMenus();
+});
 
-  chrome.contextMenus.create({
-    id: parentMenuId,
-    title: 'Medium Parser',
-    contexts: ['page'],
+// Firefox for Android has no context menu API (issue #29).
+if (api.contextMenus) {
+  api.runtime.onStartup.addListener(buildContextMenus);
+  onSettingsChanged(buildContextMenus);
+
+  api.contextMenus.onClicked.addListener(function (info, tab) {
+    if (info.parentMenuItemId === parentMenuId) {
+      const key = String(info.menuItemId).replace('mediumParser', '');
+      if (key in urlOptions) {
+        api.tabs.create({ url: buildServiceUrl(key, tab.url) });
+      }
+    }
   });
+}
 
-  for (const [key, value] of Object.entries(urlOptions)) {
-    chrome.contextMenus.create({
-      id: `mediumParser${key}`,
-      title: value.text,
+// Rebuild the right-click menu in the user's order, skipping disabled services.
+let menuBuild = Promise.resolve();
+function buildContextMenus() {
+  if (!api.contextMenus) {
+    return;
+  }
+  // serialize rebuilds so rapid saves can't create duplicate ids
+  menuBuild = menuBuild.then(async function () {
+    const settings = await loadSettings();
+    await api.contextMenus.removeAll();
+    const services = enabledServices(settings);
+    if (services.length === 0) {
+      return;
+    }
+    api.contextMenus.create({
+      id: parentMenuId,
+      title: 'Medium Parser',
       contexts: ['page'],
-      parentId: parentMenuId,
     });
-  }
-});
-
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  console.log(info, tab, info.parentMenuItemId);
-  if (info.parentMenuItemId === parentMenuId) {
-    const redirectURLKey = info.menuItemId.replace('mediumParser', '');
-    const redirectURL = urlOptions[redirectURLKey].uri.replace(
-      '#{url}#',
-      tab.url
-    );
-    chrome.tabs.create({ url: redirectURL });
-  }
-});
+    for (const service of services) {
+      api.contextMenus.create({
+        id: `mediumParser${service.key}`,
+        title: service.text,
+        contexts: ['page'],
+        parentId: parentMenuId,
+      });
+    }
+  }).catch(function (e) {
+    console.error('Medium Parser: could not build context menu', e);
+  });
+  return menuBuild;
+}

@@ -11,23 +11,40 @@
     "128": "img/icon128.jpg",
     "96": "img/icon96.jpg"
   },
-  "permissions": ["storage", "contextMenus"],
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "activeTab"
+  ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "common.js",
+      "background.js"
+    ]
   },
-  "options_ui": { "page": "options.html", "open_in_tab": false },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
   "action": {
-    "default_icon": "img/icon128.jpg"
+    "default_icon": "img/icon128.jpg",
+    "default_popup": "popup.html"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["app.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "common.js",
+        "app.js"
+      ]
     }
   ],
   "browser_specific_settings": {
     "gecko": {
       "id": "medium-parser@example.com"
-    }
+    },
+    "gecko_android": {}
   }
 }

@@ -29,51 +29,7 @@ const ignoreURLs = [
   '/tag/*',
 ];
 
-const urlOptions = {
-  google: {
-    text: 'Open in Google Cache',
-    uri: `http://webcache.googleusercontent.com/search?q=cache:#{url}#&strip=0&vwsrc=1&referer=medium-parser`,
-  },
-  readmedium: {
-    text: 'Open in Read-Medium',
-    uri: `https://readmedium.com/en/#{url}#`,
-  },
-  freedium: {
-    text: 'Open in Freedium',
-    uri: `https://freedium-mirror.cfd/#{url}#`,
-  },
-  archive_today: {
-    text: 'Open in Archive.today',
-    uri: `https://archive.today?url=#{url}#&run=1&referer=medium-parser`,
-  },
-  archive_is: {
-    text: 'Open in Archive.is',
-    uri: `https://archive.is?url=#{url}#&run=1&referer=medium-parser`,
-  },
-  proxy: {
-    text: 'Open in Proxy API',
-    uri: `https://medium-parser.vercel.app/?url=#{url}#`,
-  },
-};
-
-function init() {
-  if (checkIfGoogleWebCache()) {
-    return formatGoogleWebCache();
-  }
-  checkIfItIsMediumBlog();
-}
-
-init();
-
-// checks if the page is google web cache and referred by this extension
-function checkIfGoogleWebCache() {
-  const url = new URL(document.URL);
-  return (
-    url.hostname == 'webcache.googleusercontent.com' &&
-    url.searchParams.has('referer', 'medium-parser') &&
-    url.searchParams.has('vwsrc', '1')
-  );
-}
+checkIfItIsMediumBlog();
 
 // if it is a medium blog then run the script
 function checkIfItIsMediumBlog() {
@@ -110,35 +66,26 @@ function handleURLChange() {
 
   const config = { attributes: true, childList: true, subtree: true };
   observer.observe(document, config);
+
+  // redraw the on-page panel when the service list changes in the options
+  onSettingsChanged(function () {
+    loadSettings().then(function (settings) {
+      displayMenuOptions(
+        location.href,
+        settings.showOption == 'page' ? enabledServices(settings) : []
+      );
+    });
+  });
 }
 
 function runMedium(url) {
-  // default settings
-  let defaultSettings = {
-    openInNewTab: true,
-    redirectOption: 'google',
-    showOption: 'page',
-  };
-  chrome.storage.sync.get('mediumParserSettings', function (result) {
-    let userSetting = result.mediumParserSettings;
-    if (userSetting) {
-      // merge the user settings with the default settings
-      defaultSettings = {
-        ...defaultSettings,
-        ...userSetting,
-      };
-    }
-    console.log(result, defaultSettings);
-    if (defaultSettings.showOption == 'page') {
-      displayMenuOptions(url);
+  loadSettings().then(function (settings) {
+    if (settings.showOption == 'page') {
+      displayMenuOptions(url, enabledServices(settings));
     }
 
-    if (defaultSettings.showOption == 'redirect') {
-      handleRedirect(
-        defaultSettings.redirectOption,
-        url,
-        defaultSettings.openInNewTab
-      );
+    if (settings.showOption == 'redirect') {
+      handleRedirect(settings.redirectOption, url, settings.openInNewTab);
     }
   });
 }
@@ -151,7 +98,7 @@ function handleRedirect(redirectTo, url, openInNewTab) {
     if (redirectTo in urlOptions) {
       redirectOption = redirectTo;
     }
-    let newUrl = urlOptions[redirectOption].uri.replace('#{url}#', url);
+    let newUrl = buildServiceUrl(redirectOption, url);
     // console.log("Redirecting to ", url);
     // Redirect to the new URL
     if (openInNewTab) {
@@ -202,14 +149,23 @@ function handleRedirect(redirectTo, url, openInNewTab) {
 }
 
 // Show the links on the page
-function displayMenuOptions(url) {
+function displayMenuOptions(
+  url,
+  services = enabledServices(normalizeSettings())
+) {
   // check if it is a page
   const root = document.getElementById('root') || document.body;
   if (!root) {
     return;
   }
 
-  if (checkValidURLAndShouldProceed(url)) {
+  // remove any panel from a previous page or settings change
+  const existing = document.getElementById('medium-parser');
+  if (existing) {
+    existing.remove();
+  }
+
+  if (checkValidURLAndShouldProceed(url) && services.length > 0) {
     var leftDiv = document.createElement('div');
     leftDiv.id = 'medium-parser';
     leftDiv.setAttribute(
@@ -218,82 +174,21 @@ function displayMenuOptions(url) {
     );
 
     let buttons = [];
-    for (const [key, value] of Object.entries(urlOptions)) {
-      // console.log(key, value);
-      buttons.push(createButton(value.text, value.uri.replace('#{url}#', url)));
+    for (const service of services) {
+      buttons.push(createButton(service.text, buildServiceUrl(service.key, url)));
     }
-
-    buttons.push(createMessageElement());
 
     buttons.forEach((button) => {
       leftDiv.appendChild(button);
     });
 
-    root.appendChild(leftDiv); // A
-  } else {
-    // remove the element
-    const el = document.getElementById('medium-parser');
-    if (el != undefined || el != null) {
-      el.remove();
-    }
+    root.appendChild(leftDiv);
   }
-}
-
-// format google web-cache
-function formatGoogleWebCache() {
-  const contents = htmlDecode(
-    document.querySelector('body > div > pre').innerHTML
-  );
-  const title = getTitle(contents);
-
-  document.body.innerHTML = contents;
-  document.title = 'Medium parser - ' + title;
-}
-// Decode HTML to tags
-function htmlDecode(rawContent) {
-  var entities = {
-    '&amp;': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&#39;': "'",
-  };
-
-  for (var prop in entities) {
-    if (entities.hasOwnProperty(prop)) {
-      rawContent = rawContent.replace(new RegExp(prop, 'g'), entities[prop]);
-    }
-  }
-  return rawContent;
-}
-// get the page title
-function getTitle(rawContent) {
-  start = '<title data-rh="true">';
-  end = '</title>';
-  var startPos = rawContent.indexOf(start) + start.length;
-  var endPos = rawContent.indexOf(end);
-  return rawContent.substring(startPos, endPos).trim();
-}
-// Create the message element
-function createMessageElement() {
-  // old API
-  messageEl = document.createElement('div');
-  messageEl.innerHTML =
-    'Iframe/gist/embeds are not loaded in the Google Cache proxy. For those, please use the Read-Medium/Archive proxy instead.';
-  messageEl.setAttribute(
-    'style',
-    'padding:2px 4px; color:#242424; display:block; text-align:left;max-width: 212px;font-size: 0.83em;border: 1px solid black; margin-top:10px; position:relative;'
-  );
-  return messageEl;
-}
-
-function removeMessageEl(e) {
-  e.target.parentNode.remove();
 }
 
 // create the button UI
 function createButton(text, url) {
-  btnEl = document.createElement('a');
+  const btnEl = document.createElement('a');
   btnEl.href = url;
   btnEl.innerHTML = text;
   btnEl.setAttribute(

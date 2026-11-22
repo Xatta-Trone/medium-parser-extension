@@ -5,20 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medium Parser</title>
     <link rel="stylesheet" href="boostrap.css" />
+    <style>
+      /* Live preview: mirrors the on-page panel and the right-click menu */
+      .preview-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 240px;
+      }
+      .preview-button {
+        padding: 14px 25px;
+        background: #242424;
+        color: #fff;
+        text-align: center;
+      }
+      .preview-menu {
+        display: inline-flex;
+        align-items: flex-start;
+        font-size: 0.875rem;
+      }
+      .preview-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 4px 0;
+        min-width: 180px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+      .preview-menu li {
+        padding: 4px 16px;
+        white-space: nowrap;
+      }
+      .preview-menu .parent {
+        background: #e8f0fe;
+      }
+      .preview-menu .submenu {
+        margin-left: -2px;
+      }
+      /* Service list drag-to-reorder */
+      .drag-handle {
+        cursor: grab;
+        touch-action: none;
+        user-select: none;
+        padding: 4px 10px 4px 0;
+        color: #6c757d;
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+      .service-row.dragging {
+        position: relative;
+        z-index: 2;
+        background: #f1f5ff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .service-row.dragging .drag-handle {
+        cursor: grabbing;
+      }
+      .preview-empty {
+        color: #6c757d;
+        font-style: italic;
+      }
+    </style>
     <link rel="shortcut icon" href="img/icon128.jpg" type="image/jpg" />
   </head>
   <body style="background-color: #e9eeee">
-    <div class="container mx-auto">
-      <div class="card my-5">
+    <div class="container-fluid p-3">
+      <div class="card">
         <div class="card-body">
           <h1 class="card-title">Settings</h1>
           <h6 class="card-subtitle mb-2 text-body-secondary">
             Save your settings across all the browsers
           </h6>
           <!-- tabs -->
-          <div class="d-flex align-items-start mt-4">
+          <div class="d-md-flex align-items-start mt-4">
             <div
-              class="nav flex-column nav-pills me-3"
+              class="nav flex-md-column nav-pills mb-3 mb-md-0 me-md-3"
               id="v-pills-tab"
               role="tablist"
               aria-orientation="vertical"
@@ -37,18 +100,6 @@
               </button>
               <button
                 class="nav-link"
-                id="v-pills-instructions-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-instructions"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-instructions"
-                aria-selected="false"
-              >
-                Tutorial
-              </button>
-              <button
-                class="nav-link"
                 id="v-pills-disclaimer-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#v-pills-disclaimer"
@@ -63,6 +114,7 @@
             <div
               class="tab-content flex-grow-1 br-1 border border-1 p-3 rounded-1"
               id="v-pills-tabContent"
+              style="min-width: 0"
             >
               <div
                 class="tab-pane fade show active"
@@ -106,6 +158,14 @@
                         </label>
                       </div>
                     </div>
+                    <div class="mb-3">
+                      <label class="form-label">Services</label>
+                      <div class="form-text mb-1">
+                        Choose which services appear on the page, in the
+                        popup and in the right-click menu, and their order.
+                      </div>
+                      <ul class="list-group" id="serviceList"></ul>
+                    </div>
                     <div
                       class="alert alert-success alert-dismissible mt-3"
                       id="alert-success"
@@ -132,40 +192,12 @@
                       Save Changes
                     </button>
                   </div>
-                  <div class="col-md-6">
-                    <div id="previewDiv">
-                      <h3>Preview</h3>
-                      <img
-                        src="/img/icon128.jpg"
-                        id="previewImg"
-                        alt="previewImg"
-                        style="height: 80%; width: auto"
-                      />
-                    </div>
+                  <div class="col-md-6 mt-4 mt-md-0">
+                    <h3 class="h5">Preview</h3>
+                    <p class="form-text mt-0" id="previewCaption"></p>
+                    <div id="preview" aria-live="polite"></div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="tab-pane fade"
-                id="v-pills-instructions"
-                role="tabpanel"
-                aria-labelledby="v-pills-instructions-tab"
-                tabindex="0"
-              >
-                <p>
-                  Please watch this youtube video to know how to use this
-                  extension.
-                </p>
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/yMEDwYrsl6I?si=MTFtrSJOpKFHsl8W"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
               </div>
               <div
                 class="tab-pane fade"
@@ -228,6 +260,7 @@
       </div>
     </div>
     <script src="bootstrap.js" type="text/javascript"></script>
+    <script src="common.js" type="text/javascript"></script>
     <script src="options.js" type="text/javascript"></script>
   </body>
 </html>
