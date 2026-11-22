@@ -20,7 +20,6 @@ the extension itself; plain JavaScript.
 - `scripts/chrome-webstore.mjs`: Chrome Web Store API v2 client used by the publish workflow.
 - `tests/`: `node --test`. Tests load `chrome/common.js` and `chrome/app.js` in a `vm` sandbox.
   Arrays from the sandbox are another realm; wrap them in `Array.from` before `deepEqual`.
-- `old-version/`: legacy code, unused.
 
 ## Commands
 
