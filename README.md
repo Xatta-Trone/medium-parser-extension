@@ -30,7 +30,7 @@ Medium parser is a web browser extension to help read the member-only articles o
 
 ## Installation Instructions
 ### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini/Thorium etc.)
-[![Download from Chrome Web store](chrome/img/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/elgmajanahbjpbcljflifdnnmpodfiij) 
+[![Download from Chrome Web store](.github/images/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/elgmajanahbjpbcljflifdnnmpodfiij) 
 
 ![Chrome Web Store rating count](https://img.shields.io/chrome-web-store/rating-count/elgmajanahbjpbcljflifdnnmpodfiij)
 ![Chrome Web Store rating](https://img.shields.io/chrome-web-store/rating/elgmajanahbjpbcljflifdnnmpodfiij)
@@ -46,7 +46,7 @@ Or, Install manually
 
 
 ### Mozilla Firefox
-[![Download from mozilla add-ons](chrome/img/firefox.png)](https://addons.mozilla.org/addon/medium-parser/) 
+[![Download from mozilla add-ons](.github/images/firefox.png)](https://addons.mozilla.org/addon/medium-parser/) 
 
 ![Mozilla Add-on Rating](https://img.shields.io/amo/rating/medium-parser) 
 ![Mozilla Add-on Version](https://img.shields.io/amo/v/medium-parser)
@@ -70,7 +70,7 @@ Your contribution allows me to spend more time making this kind of extension/pro
 
 ## Preview
 <p align="center">
-  <img src="./chrome/img/sample2.png" />
+  <img src="./.github/images/sample2.png" />
 </p>
 
 ## Star History

@@ -55,13 +55,16 @@ jobs:
       - name: Run tests
         run: node --test tests/
 
+      - name: Build add-on from chrome/ plus firefox/manifest.json
+        run: node scripts/build-firefox.mjs
+
       - name: Lint
-        run: npx --yes web-ext@${WEB_EXT_VERSION} lint --source-dir firefox
+        run: npx --yes web-ext@${WEB_EXT_VERSION} lint --source-dir build/firefox
 
       - name: Build zip
         run: >
           npx --yes web-ext@${WEB_EXT_VERSION} build
-          --source-dir firefox
+          --source-dir build/firefox
           --artifacts-dir dist
           --filename medium-parser-firefox-${{ steps.version.outputs.version }}.zip
           --overwrite-dest
@@ -92,7 +95,7 @@ jobs:
           # --approval-timeout 0: submit and finish. Mozilla's review can take
           # longer than a CI job should wait; AMO emails you when it's done.
           npx --yes web-ext@${WEB_EXT_VERSION} sign \
-            --source-dir firefox \
+            --source-dir build/firefox \
             --artifacts-dir dist \
             --channel listed \
             --approval-timeout 0
