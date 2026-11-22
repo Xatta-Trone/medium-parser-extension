@@ -17,17 +17,22 @@ function createElement(tagName) {
   };
 }
 
-function loadScript(path, root = null) {
+function loadScript(path, { root = null, body = null } = {}) {
   const code = fs.readFileSync(path, 'utf8');
   const elements = new Map();
   if (root) {
     elements.set('root', root);
   }
+  const location = {
+    href: 'https://example.com/post',
+    hostname: 'example.com',
+    pathname: '/post',
+  };
   const sandbox = {
     URL,
     console: { log() {} },
-    window: { location: { href: 'https://example.com/post' } },
-    location: { href: 'https://example.com/post' },
+    window: { location },
+    location,
     sessionStorage: {
       getItem() { return null; },
       setItem() {},
@@ -41,6 +46,7 @@ function loadScript(path, root = null) {
       querySelector() { return null; },
       getElementById(id) { return elements.get(id) || null; },
       createElement,
+      body,
     },
   };
   vm.runInNewContext(code, sandbox, { filename: path });
@@ -48,7 +54,7 @@ function loadScript(path, root = null) {
 }
 
 for (const scriptPath of ['chrome/app.js', 'firefox/app.js']) {
-  test(`${scriptPath} displayMenuOptions tolerates pages without #root`, () => {
+  test(`${scriptPath} displayMenuOptions tolerates pages without #root or body`, () => {
     const sandbox = loadScript(scriptPath);
 
     assert.doesNotThrow(() => {
@@ -56,14 +62,25 @@ for (const scriptPath of ['chrome/app.js', 'firefox/app.js']) {
     });
   });
 
-  test(`${scriptPath} displayMenuOptions still appends menu into #root`, () => {
+  test(`${scriptPath} displayMenuOptions appends a fixed menu into #root`, () => {
     const root = createElement('div');
-    const sandbox = loadScript(scriptPath, root);
+    const sandbox = loadScript(scriptPath, { root });
 
     sandbox.displayMenuOptions('https://example.com/post');
 
-    assert.equal(root.style.position, 'relative');
     assert.equal(root.children.length, 1);
-    assert.equal(root.children[0].id, 'medium-parser');
+    const menu = root.children[0];
+    assert.equal(menu.id, 'medium-parser');
+    assert.match(menu.style, /position:fixed/);
+  });
+
+  test(`${scriptPath} displayMenuOptions falls back to document.body`, () => {
+    const body = createElement('body');
+    const sandbox = loadScript(scriptPath, { body });
+
+    sandbox.displayMenuOptions('https://example.com/post');
+
+    assert.equal(body.children.length, 1);
+    assert.equal(body.children[0].id, 'medium-parser');
   });
 }
