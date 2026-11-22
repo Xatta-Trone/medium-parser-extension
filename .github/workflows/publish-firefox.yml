@@ -1,0 +1,98 @@
+name: Publish Firefox add-on
+
+# Publishing a GitHub release submits that version to addons.mozilla.org (AMO).
+# Run it by hand from the Actions tab to lint and build without submitting.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      submit:
+        description: 'Submit to AMO (leave off to only lint and build)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # attach the built zip to the release
+
+concurrency:
+  group: publish-firefox
+  cancel-in-progress: false
+
+env:
+  WEB_EXT_VERSION: 10.8.0
+
+jobs:
+  publish:
+    # pre-releases are for testing; don't send them to AMO
+    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+
+      - name: Check versions match
+        id: version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          firefox=$(node -p "require('./firefox/manifest.json').version")
+          chrome=$(node -p "require('./chrome/manifest.json').version")
+          echo "firefox/manifest.json: $firefox, chrome/manifest.json: $chrome"
+          if [ "$firefox" != "$chrome" ]; then
+            echo "::error::firefox/manifest.json ($firefox) and chrome/manifest.json ($chrome) have different versions."
+            exit 1
+          fi
+          if [ -n "$TAG" ] && [ "${TAG#v}" != "$firefox" ]; then
+            echo "::error::Release tag $TAG does not match the manifest version $firefox. Bump the manifests or retag."
+            exit 1
+          fi
+          echo "version=$firefox" >> "$GITHUB_OUTPUT"
+
+      - name: Run tests
+        run: node --test tests/
+
+      - name: Lint
+        run: npx --yes web-ext@${WEB_EXT_VERSION} lint --source-dir firefox
+
+      - name: Build zip
+        run: >
+          npx --yes web-ext@${WEB_EXT_VERSION} build
+          --source-dir firefox
+          --artifacts-dir dist
+          --filename medium-parser-firefox-${{ steps.version.outputs.version }}.zip
+          --overwrite-dest
+
+      - name: Upload zip as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: medium-parser-firefox-${{ steps.version.outputs.version }}
+          path: dist/*.zip
+
+      - name: Attach zip to release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" dist/*.zip --clobber
+
+      - name: Submit to AMO
+        if: github.event_name == 'release' || inputs.submit
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          if [ -z "$WEB_EXT_API_KEY" ] || [ -z "$WEB_EXT_API_SECRET" ]; then
+            echo "::error::Add the AMO_JWT_ISSUER and AMO_JWT_SECRET repository secrets first."
+            exit 1
+          fi
+          # --approval-timeout 0: submit and finish. Mozilla's review can take
+          # longer than a CI job should wait; AMO emails you when it's done.
+          npx --yes web-ext@${WEB_EXT_VERSION} sign \
+            --source-dir firefox \
+            --artifacts-dir dist \
+            --channel listed \
+            --approval-timeout 0

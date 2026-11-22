@@ -136,7 +136,7 @@ for (const dir of ['chrome', 'firefox']) {
       sandbox.enabledServices(settings)
     );
 
-    const labels = root.children[0].children.map((el) => el.innerHTML);
+    const labels = root.children[0].children.map((el) => el.textContent);
     // services missing from the saved list are appended, enabled
     assert.deepEqual(labels, [
       'Open in Archive.is',
