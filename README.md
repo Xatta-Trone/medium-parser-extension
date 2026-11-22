@@ -3,6 +3,16 @@
 </p>
 
 <h1 align="center">Medium Parser</h1>
+
+<p align="center">
+  <a href="https://github.com/Xatta-Trone/medium-parser-extension/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/Xatta-Trone/medium-parser-extension?label=release"></a>
+  <a href="https://chromewebstore.google.com/detail/medium-parser/elgmajanahbjpbcljflifdnnmpodfiij"><img alt="Chrome Web Store users" src="https://img.shields.io/chrome-web-store/users/elgmajanahbjpbcljflifdnnmpodfiij?label=chrome%20users&logo=googlechrome&logoColor=white"></a>
+  <a href="https://addons.mozilla.org/addon/medium-parser/"><img alt="Firefox Add-ons users" src="https://img.shields.io/amo/users/medium-parser?label=firefox%20users&logo=firefoxbrowser&logoColor=white"></a>
+  <a href="https://github.com/Xatta-Trone/medium-parser-extension/actions/workflows/publish-chrome.yml"><img alt="Chrome publish workflow status" src="https://github.com/Xatta-Trone/medium-parser-extension/actions/workflows/publish-chrome.yml/badge.svg"></a>
+  <a href="https://github.com/Xatta-Trone/medium-parser-extension/actions/workflows/publish-firefox.yml"><img alt="Firefox publish workflow status" src="https://github.com/Xatta-Trone/medium-parser-extension/actions/workflows/publish-firefox.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/github/license/Xatta-Trone/medium-parser-extension"></a>
+</p>
+
 Medium parser is a web browser extension to help read the member-only articles on medium.com and publications hosted on Medium, including those on their own domain.
 
 
@@ -21,10 +31,10 @@ Medium parser is a web browser extension to help read the member-only articles o
 ### Google Chrome / Microsoft Edge / Chromium Browsers (Brave/Opera Mini/Thorium etc.)
 [![Download from Chrome Web store](chrome/img/chrome.png)](https://chromewebstore.google.com/detail/medium-parser/elgmajanahbjpbcljflifdnnmpodfiij) 
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/elgmajanahbjpbcljflifdnnmpodfiij)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/elgmajanahbjpbcljflifdnnmpodfiij)
-![](https://img.shields.io/chrome-web-store/v/elgmajanahbjpbcljflifdnnmpodfiij.svg?style=flat-square)
-![](https://img.shields.io/chrome-web-store/d/elgmajanahbjpbcljflifdnnmpodfiij.svg?style=flat-square)
+![Chrome Web Store rating count](https://img.shields.io/chrome-web-store/rating-count/elgmajanahbjpbcljflifdnnmpodfiij)
+![Chrome Web Store rating](https://img.shields.io/chrome-web-store/rating/elgmajanahbjpbcljflifdnnmpodfiij)
+![Chrome Web Store version](https://img.shields.io/chrome-web-store/v/elgmajanahbjpbcljflifdnnmpodfiij)
+![Chrome Web Store users](https://img.shields.io/chrome-web-store/users/elgmajanahbjpbcljflifdnnmpodfiij)
 
 Or, Install manually
 1. Download this repo as a [ZIP file from GitHub](https://github.com/Xatta-Trone/medium-parser-extension/archive/refs/heads/main.zip).

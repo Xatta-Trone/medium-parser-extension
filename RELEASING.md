@@ -1,6 +1,23 @@
 # Releasing
 
-Publishing a GitHub release submits the new version to both stores automatically.
+A release is three steps:
+
+1. **Bump both manifests.** Set the same new `version` in `chrome/manifest.json` and
+   `firefox/manifest.json`.
+2. **Add a changelog entry** for that version at the top of `changelog.md`. Merge both changes to `main`.
+3. **Publish a GitHub release** from `main`, tagged with the version (for example `v1.6.7`). You can
+   paste the changelog entry as the release notes.
+
+Both stores get the new version automatically. Each store reviews it before it goes live.
+
+**Exception: new permissions.** If the version adds a permission to the manifest, the Chrome Web
+Store won't accept the submission until you justify it. The workflow still uploads the package, then
+fails at the submit step. Open the item in the
+[Developer Dashboard](https://chrome.google.com/webstore/devconsole), add the justification on the
+**Privacy** tab, then click **Submit for review** there. You don't need to re-run the workflow.
+Firefox isn't affected.
+
+The rest of this page covers the one-time setup, what the workflows do, and what to do if one fails.
 
 | Store | Workflow |
 | --- | --- |
